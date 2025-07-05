@@ -269,7 +269,7 @@
                 DOMElements.result.textContent = `Tempo real necessário: ${resultParts.join(' e ')}`;
 
                 const targetRealDate = new Date(new Date().getTime() + diffRealSeconds * 1000);
-                DOMElements.localTimeResult.textContent = `Hora local prevista: ${targetRealDate.toLocaleString('pt-BR', { dateStyle: 'long', timeStyle: 'medium' })}`;
+                DOMElements.localTimeResult.textContent = `Hora local prevista: ${targetRealDate.toLocaleString('pt-BR', { dateStyle: 'long', timeStyle: 'short' })}`;
             },
             reset: () => {
                 Utils.setInputValue(DOMElements.roundStartDate, Utils.formatDateForInput(CONFIG.DEFAULT_ROUND_START_DATE));
