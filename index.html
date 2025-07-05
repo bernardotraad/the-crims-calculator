@@ -118,9 +118,22 @@
             gap: 0.75rem; /* Espaçamento maior entre inputs */
             flex-wrap: wrap;
         }
+        .time-inputs .input-with-label { /* Novo contêiner para input e label */
+            flex: 1 1 calc(33% - 0.75rem);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .time-inputs .input-with-label label {
+            text-align: center;
+            margin-bottom: 0.25rem; /* Margem menor para rótulos curtos */
+            font-size: 0.875rem; /* Fonte menor para rótulo do input */
+            color: #94a3b8; /* Cor suave para rótulo */
+        }
+
         .time-inputs input[type="number"],
         .points-inputs input[type="number"] {
-            flex: 1 1 calc(33% - 0.75rem); /* Ajuste para 3 inputs por linha */
+            flex: 1; /* Ocupa o espaço dentro do input-with-label */
             padding: 0.75rem; /* Preenchimento maior */
             border-radius: 0.625rem; /* Cantos mais arredondados */
             border: 1px solid #475569; /* Borda (slate-600) */
@@ -133,7 +146,7 @@
         }
         /* Cor do texto para inputs numéricos na calculadora de pontos */
         #totalPoints {
-            color: #000000; /* Texto preto para melhor legibilidade */
+            color: #e2e8f0; /* Revertido para texto claro para consistência do tema */
         }
         .time-inputs input[type="number"]:focus,
         .points-inputs input[type="number"]:focus {
@@ -162,6 +175,7 @@
             font-size: 1.05rem;
             transition: border-color 0.2s ease, box-shadow 0.2s ease;
         }
+        /* Cor do texto para o select - Removido o estilo específico para usar o padrão */
         input[type="datetime-local"]:focus,
         select:focus {
             border-color: #f59e0b;
@@ -326,9 +340,18 @@
                 <div class="input-group">
                     <label>Calculado automaticamente:</label>
                     <div class="time-inputs">
-                        <input type="number" id="currentDay" placeholder="Dia" readonly>
-                        <input type="number" id="currentHour" placeholder="Hora" readonly>
-                        <input type="number" id="currentMinute" placeholder="Minuto" readonly>
+                        <div class="input-with-label">
+                            <label for="currentDay">Dia</label>
+                            <input type="number" id="currentDay" placeholder="Dia" readonly>
+                        </div>
+                        <div class="input-with-label">
+                            <label for="currentHour">Hora</label>
+                            <input type="number" id="currentHour" placeholder="Hora" readonly>
+                        </div>
+                        <div class="input-with-label">
+                            <label for="currentMinute">Minuto</label>
+                            <input type="number" id="currentMinute" placeholder="Minuto" readonly>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -336,11 +359,20 @@
             <div>
                 <div class="section-title">Tempo Desejado no Jogo</div>
                 <div class="input-group">
-                    <label for="targetDay">Insira o tempo futuro desejado:</label>
+                    <label>Insira o tempo futuro desejado:</label>
                     <div class="time-inputs">
-                        <input type="number" id="targetDay" placeholder="Dia" min="1">
-                        <input type="number" id="targetHour" placeholder="Hora" min="0" max="23">
-                        <input type="number" id="targetMinute" placeholder="Minuto" min="0" max="59">
+                        <div class="input-with-label">
+                            <label for="targetDay">Dia</label>
+                            <input type="number" id="targetDay" placeholder="Dia" min="1">
+                        </div>
+                        <div class="input-with-label">
+                            <label for="targetHour">Hora</label>
+                            <input type="number" id="targetHour" placeholder="Hora" min="0" max="23">
+                        </div>
+                        <div class="input-with-label">
+                            <label for="targetMinute">Minuto</label>
+                            <input type="number" id="targetMinute" placeholder="Minuto" min="0" max="59">
+                        </div>
                     </div>
                 </div>
             </div>
