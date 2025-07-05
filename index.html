@@ -25,9 +25,21 @@
         }
 
         .tab-button.active {
-            border-color: #f59e0b; /* amber-500 */
+            border-color: #f59e0b;
             background-color: #f59e0b;
             color: white;
+        }
+        /* Lógica de ícones simplificada */
+        #theme-icon-dark {
+            display: none;
+        }
+
+        .dark #theme-icon-light {
+            display: none;
+        }
+
+        .dark #theme-icon-dark {
+            display: block;
         }
     </style>
 </head>
@@ -159,8 +171,6 @@
         // --- SELETORES DE ELEMENTOS DOM ---
         const DOMElements = {
             themeToggle: document.getElementById('theme-toggle'),
-            themeIconLight: document.getElementById('theme-icon-light'),
-            themeIconDark: document.getElementById('theme-icon-dark'),
             tabs: document.querySelectorAll('.tab-button'),
             tabContents: document.querySelectorAll('.tab-content'),
             roundStartDate: document.getElementById('roundStartDate'),
@@ -387,28 +397,22 @@
 
         // --- FUNÇÃO DE INICIALIZAÇÃO PRINCIPAL ---
         function main() {
-            // Lógica de Tema - Nova e Simplificada
+            // Lógica de Tema - Simplificada
             const htmlEl = document.documentElement;
-            const updateTheme = (isDark) => {
-                DOMElements.themeIconLight.classList.toggle('hidden', !isDark);
-                DOMElements.themeIconDark.classList.toggle('hidden', isDark);
-                if (isDark) {
-                    htmlEl.classList.add('dark');
-                } else {
-                    htmlEl.classList.remove('dark');
-                }
-            };
+            if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+                htmlEl.classList.add('dark');
+            } else {
+                htmlEl.classList.remove('dark');
+            }
 
             DOMElements.themeToggle.addEventListener('click', () => {
-                const isDark = !htmlEl.classList.contains('dark');
-                localStorage.setItem('theme', isDark ? 'dark' : 'light');
-                updateTheme(isDark);
+                htmlEl.classList.toggle('dark');
+                if (htmlEl.classList.contains('dark')) {
+                    localStorage.theme = 'dark';
+                } else {
+                    localStorage.theme = 'light';
+                }
             });
-
-            // Aplica o tema na carga da página
-            const initialThemeIsDark = localStorage.getItem('theme') === 'dark' ||
-                (localStorage.getItem('theme') === null && window.matchMedia('(prefers-color-scheme: dark)').matches);
-            updateTheme(initialThemeIsDark);
 
             // Configura o restante da aplicação
             DOMElements.tabs.forEach(tab => tab.addEventListener('click', () => showTab(tab.dataset.tabId)));
