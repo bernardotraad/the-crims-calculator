@@ -290,9 +290,12 @@
 
                 TimeCalculator.calculateCurrentRoundEndDate();
                 TimeCalculator.calculateCurrentGameTime();
-                Utils.setInputValue(DOMElements.targetDay, DOMElements.currentDay.value);
-                Utils.setInputValue(DOMElements.targetHour, DOMElements.currentHour.value);
-                Utils.setInputValue(DOMElements.targetMinute, DOMElements.currentMinute.value);
+
+                // Carrega os valores salvos do Tempo Desejado ou usa os atuais
+                DOMElements.targetDay.value = localStorage.getItem('targetDay') || DOMElements.currentDay.value;
+                DOMElements.targetHour.value = localStorage.getItem('targetHour') || DOMElements.currentHour.value;
+                DOMElements.targetMinute.value = localStorage.getItem('targetMinute') || DOMElements.currentMinute.value;
+
                 Utils.clearMessages(DOMElements.result, DOMElements.localTimeResult, DOMElements.errorMessage);
             }
         };
@@ -384,38 +387,41 @@
 
         // --- FUNÇÃO DE INICIALIZAÇÃO PRINCIPAL ---
         function main() {
-            // Lógica de Tema reescrita e simplificada
-            const setTheme = (theme) => {
-                localStorage.setItem('theme', theme);
-                if (theme === 'dark') {
-                    document.documentElement.classList.add('dark');
-                    DOMElements.themeIconLight.classList.remove('hidden');
-                    DOMElements.themeIconDark.classList.add('hidden');
+            // Lógica de Tema - Nova e Simplificada
+            const htmlEl = document.documentElement;
+            const updateTheme = (isDark) => {
+                DOMElements.themeIconLight.classList.toggle('hidden', !isDark);
+                DOMElements.themeIconDark.classList.toggle('hidden', isDark);
+                if (isDark) {
+                    htmlEl.classList.add('dark');
                 } else {
-                    document.documentElement.classList.remove('dark');
-                    DOMElements.themeIconLight.classList.add('hidden');
-                    DOMElements.themeIconDark.classList.remove('hidden');
+                    htmlEl.classList.remove('dark');
                 }
             };
 
             DOMElements.themeToggle.addEventListener('click', () => {
-                const currentTheme = localStorage.getItem('theme');
-                setTheme(currentTheme === 'dark' ? 'light' : 'dark');
+                const isDark = !htmlEl.classList.contains('dark');
+                localStorage.setItem('theme', isDark ? 'dark' : 'light');
+                updateTheme(isDark);
             });
 
-            // Inicializa o tema na carga da página
-            setTheme(localStorage.getItem('theme') || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'));
+            // Aplica o tema na carga da página
+            const initialThemeIsDark = localStorage.getItem('theme') === 'dark' ||
+                (localStorage.getItem('theme') === null && window.matchMedia('(prefers-color-scheme: dark)').matches);
+            updateTheme(initialThemeIsDark);
 
             // Configura o restante da aplicação
             DOMElements.tabs.forEach(tab => tab.addEventListener('click', () => showTab(tab.dataset.tabId)));
 
+            // Carrega valores do localStorage
             const savedTotalPoints = localStorage.getItem('totalPoints');
             if (savedTotalPoints) {
                 DOMElements.totalPoints.value = savedTotalPoints;
             }
 
-            TimeCalculator.reset();
+            TimeCalculator.reset(); // Inicializa e carrega valores da Calculadora de Tempo
 
+            // Adiciona listeners para salvar no localStorage
             DOMElements.calculateTimeButton.addEventListener('click', TimeCalculator.calculateRealTime);
             DOMElements.resetTimeCalculatorButton.addEventListener('click', TimeCalculator.reset);
             DOMElements.roundStartDate.addEventListener('change', () => {
@@ -423,6 +429,9 @@
                 TimeCalculator.calculateCurrentGameTime();
                 TimeCalculator.calculateCurrentRoundEndDate();
             });
+            DOMElements.targetDay.addEventListener('input', () => localStorage.setItem('targetDay', DOMElements.targetDay.value));
+            DOMElements.targetHour.addEventListener('input', () => localStorage.setItem('targetHour', DOMElements.targetHour.value));
+            DOMElements.targetMinute.addEventListener('input', () => localStorage.setItem('targetMinute', DOMElements.targetMinute.value));
 
             PointsCalculator.init();
 
