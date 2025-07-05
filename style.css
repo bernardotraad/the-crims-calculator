@@ -1,0 +1,246 @@
+/* Estilos base para o corpo da página */
+body {
+    font-family: 'Inter', sans-serif;
+    background-color: #1a202c; /* Fundo escuro */
+    color: #e2e8f0; /* Texto claro */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh; /* Ocupa a altura total da viewport */
+    margin: 0;
+    padding: 1rem; /* Preenchimento para dispositivos móveis */
+    box-sizing: border-box;
+}
+
+/* Estilização do container principal */
+.container {
+    background-color: #2d3748; /* Azul-acinzentado mais escuro */
+    padding: 2rem; /* Preenchimento aumentado */
+    border-radius: 0.75rem; /* Cantos arredondados */
+    box-shadow: 0 10px 15px rgba(0, 0, 0, 0.2); /* Sombra sutil */
+    max-width: 600px; /* Largura máxima para desktop */
+    width: 100%;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem; /* Espaçamento entre as seções */
+}
+
+/* Título principal */
+h1 {
+    font-size: 2.25rem; /* Título maior para impacto */
+    font-weight: 700; /* Negrito */
+    margin-bottom: 1rem;
+    color: #4299e1; /* Azul de destaque */
+}
+
+/* Estilização da navegação por abas */
+.tab-navigation {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 1.25rem;
+    border-bottom: 2px solid #4a5568;
+}
+
+/* Estilização dos botões de aba */
+.tab-button {
+    background-color: #4a5568;
+    color: #e2e8f0;
+    padding: 0.75rem 1.25rem;
+    border: none;
+    border-radius: 0.5rem 0.5rem 0 0; /* Cantos superiores arredondados */
+    cursor: pointer;
+    font-size: 1.125rem;
+    font-weight: 600;
+    transition: background-color 0.3s ease;
+    margin: 0 0.125rem; /* Pequena margem entre os botões */
+    flex-grow: 1; /* Faz os botões preencherem o espaço */
+    text-align: center;
+}
+.tab-button:hover {
+    background-color: #6a768a;
+}
+.tab-button.active {
+    background-color: #4299e1;
+    color: white;
+    border-bottom: 2px solid #4299e1;
+}
+
+/* Estilização do conteúdo das abas */
+.tab-content {
+    display: none; /* Escondido por padrão */
+    flex-direction: column; /* Usa flex para o layout interno */
+    gap: 1.25rem; /* Espaçamento entre as seções de conteúdo */
+}
+.tab-content.active {
+    display: flex;
+}
+
+/* Títulos de seção dentro das abas */
+.section-title {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: #a0aec0;
+    margin-bottom: 0.75rem;
+    border-bottom: 1px solid #4a5568;
+    padding-bottom: 0.5rem;
+}
+
+/* Estilização de grupos de input */
+.input-group {
+    margin-bottom: 1rem;
+    text-align: left;
+}
+.input-group label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: 600;
+}
+
+/* Contêiner flexível para inputs de tempo */
+.time-inputs, .points-inputs {
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap; /* Permite quebrar linha em telas pequenas */
+}
+.time-inputs input[type="number"],
+.points-inputs input[type="number"] {
+    flex: 1 1 calc(33% - 0.5rem); /* Aproximadamente 3 inputs por linha em telas maiores */
+    padding: 0.625rem;
+    border-radius: 0.5rem;
+    border: 1px solid #4a5568;
+    background-color: #4a5568;
+    color: #e2e8f0;
+    font-size: 1rem;
+    text-align: center;
+    -moz-appearance: textfield; /* Esconde setas no Firefox */
+}
+/* Esconde setas em inputs numéricos para Chrome/Safari */
+.time-inputs input[type="number"]::-webkit-outer-spin-button,
+.time-inputs input[type="number"]::-webkit-inner-spin-button,
+.points-inputs input[type="number"]::-webkit-outer-spin-button,
+.points-inputs input[type="number"]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+/* Estilização para inputs de data/hora local e selects */
+input[type="datetime-local"],
+select {
+    width: 100%;
+    padding: 0.625rem;
+    border-radius: 0.5rem;
+    border: 1px solid #4a5568;
+    background-color: #4a5568;
+    color: #e2e8f0;
+    font-size: 1rem;
+}
+
+/* Estilização de inputs somente leitura */
+input[readonly] {
+    background-color: #3d485b;
+    cursor: default;
+    opacity: 0.9;
+}
+
+/* Estilização de grupos de botões */
+.button-group {
+    display: flex;
+    gap: 1rem;
+    margin-top: 1.5rem;
+    flex-wrap: wrap; /* Permite que os botões quebrem linha em telas pequenas */
+}
+
+/* Estilização geral de botões */
+button {
+    flex: 1 1 calc(50% - 0.5rem); /* Dois botões por linha em telas maiores */
+    background-color: #4299e1;
+    color: white;
+    padding: 0.75rem 1.5rem;
+    border-radius: 0.5rem;
+    font-size: 1.125rem;
+    font-weight: 700;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.1s ease;
+}
+button:hover {
+    background-color: #3182ce;
+    transform: translateY(-2px);
+}
+button:active {
+    transform: translateY(0);
+}
+
+/* Estilização específica do botão de redefinir */
+#resetTimeCalculatorButton, #resetPointsCalculatorButton {
+    background-color: #e53e3e; /* Cor vermelha */
+}
+#resetTimeCalculatorButton:hover, #resetPointsCalculatorButton:hover {
+    background-color: #c53030;
+}
+
+/* Estilização da exibição de resultados */
+#result, #pointsResult {
+    margin-top: 1.5rem;
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: #68d391; /* Destaque verde */
+    min-height: 1.875rem; /* Garante espaço mesmo quando vazio */
+}
+
+/* Estilização do resultado da hora local */
+#localTimeResult {
+    font-size: 1rem;
+    font-weight: 500;
+    color: #a0aec0;
+    margin-top: 0.5rem;
+}
+
+/* Estilização de mensagens de erro */
+.error-message {
+    color: #fc8181; /* Cor vermelha para erro */
+    margin-top: 0.625rem;
+    font-size: 0.875rem;
+    font-weight: 500;
+}
+
+/* Exibição do resultado de atributos na calculadora de pontos */
+.attribute-result {
+    display: flex;
+    justify-content: space-between;
+    padding: 0.5rem 0;
+    border-bottom: 1px dashed #4a5568;
+}
+.attribute-result:last-child {
+    border-bottom: none;
+}
+.attribute-label {
+    font-weight: 600;
+    color: #cbd5e0;
+}
+.attribute-value {
+    color: #68d391;
+}
+
+/* Ajustes responsivos para telas menores */
+@media (max-width: 480px) {
+    .container {
+        padding: 1rem;
+    }
+    h1 {
+        font-size: 1.75rem;
+    }
+    .tab-button {
+        font-size: 1rem;
+        padding: 0.625rem 0.75rem;
+    }
+    .time-inputs input[type="number"],
+    .points-inputs input[type="number"],
+    button {
+        flex: 1 1 100%; /* Empilha inputs e botões em telas muito pequenas */
+    }
+    .button-group {
+        flex-direction: column;
+    }
+}
