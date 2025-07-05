@@ -287,40 +287,40 @@ App.PointsCalculator = {
     // A soma das percentagens para cada classe deve ser 1.0 (100%).
     CLASS_DISTRIBUTIONS: {
         assassino: { // Hitman - Foco em combate e sobrevivência em confronto.
-            Força: 0.50,
-            Tolerância: 0.30,
-            Inteligência: 0.15,
+            Forca: 0.50,
+            Tolerancia: 0.30,
+            Inteligencia: 0.15,
             Carisma: 0.05
         },
         cafetao: { // Pimp - Foco em gerenciamento de pessoal e proteção.
             Carisma: 0.40,
-            Inteligência: 0.25,
-            Tolerância: 0.25,
-            Força: 0.10
+            Inteligencia: 0.25,
+            Tolerancia: 0.25,
+            Forca: 0.10
         },
         corretor: { // Broker - Foco em transações financeiras e influência no mercado.
-            Inteligência: 0.45,
+            Inteligencia: 0.45,
             Carisma: 0.35,
-            Tolerância: 0.15,
-            Força: 0.05
+            Tolerancia: 0.15,
+            Forca: 0.05
         },
         empresario: { // Businessman - Foco em negócios e investimentos.
-            Inteligência: 0.45,
+            Inteligencia: 0.45,
             Carisma: 0.35,
-            Tolerância: 0.15,
-            Força: 0.05
+            Tolerancia: 0.15,
+            Forca: 0.05
         },
         ladrao: { // Robber - Foco em roubos e agilidade.
-            Inteligência: 0.40,
-            Tolerância: 0.35,
-            Força: 0.20,
+            Inteligencia: 0.40,
+            Tolerancia: 0.35,
+            Forca: 0.20,
             Carisma: 0.05
         },
         traficante: { // Dealer - Foco em comércio de drogas e rede de contatos.
-            Inteligência: 0.38,
-            Tolerância: 0.28,
+            Inteligencia: 0.38,
+            Tolerancia: 0.28,
             Carisma: 0.28,
-            Força: 0.06
+            Forca: 0.06
         }
     },
 
@@ -354,11 +354,19 @@ App.PointsCalculator = {
             <p class="text-xl font-bold mb-4">Distribuição para ${classNameDisplay} (${totalPoints} pontos):</p>
         `;
 
+        // Mapeamento para exibir os nomes dos atributos com acento
+        const attrLabels = {
+            Forca: 'Força',
+            Tolerancia: 'Tolerância',
+            Inteligencia: 'Inteligência',
+            Carisma: 'Carisma'
+        };
+
         for (const attribute in percentages) {
             const points = Math.round(totalPoints * percentages[attribute]);
             resultHtml += `
                 <div class="attribute-result">
-                    <span class="attribute-label">${attribute}:</span>
+                    <span class="attribute-label">${attrLabels[attribute] || attribute}:</span>
                     <span class="attribute-value">${points} pontos (${(percentages[attribute] * 100).toFixed(0)}%)</span>
                 </div>
             `;
@@ -371,22 +379,4 @@ App.PointsCalculator = {
      */
     resetPointsCalculator: function() {
         App.Utils.setInputValue('totalPoints', 10000);
-        App.Utils.setInputValue('playerClass', 'assassino'); // Padrão para Assassino (primeiro na lista alfabética)
-        App.Utils.clearMessages(['pointsResult', 'pointsErrorMessage']);
-    }
-};
-
-// --- Inicialização da Aplicação ---
-// Esta função é chamada quando todo o DOM é carregado.
-App.init = function() {
-    App.UI.init(); // Inicializa os event listeners da UI
-    App.TimeCalculator.resetTimeCalculator(); // Configura os padrões da Calculadora de Tempo
-    App.PointsCalculator.resetPointsCalculator(); // Configura os padrões da Calculadora de Pontos
-    App.UI.showTab('timeCalculatorTabContent'); // Mostra a aba da calculadora de tempo por padrão
-
-    // Configura intervalos para atualização em tempo real
-    setInterval(App.TimeCalculator.calculateCurrentGameTime, 1000); // Atualiza o tempo do jogo a cada segundo
-    setInterval(App.TimeCalculator.calculateCurrentRoundEndDate, 60 * 1000); // Atualiza a data de fim da rodada a cada minuto
-};
-
-document.addEventListener('DOMContentLoaded', App.init);
+        App.Utils.setInputValue
