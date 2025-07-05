@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="pt-BR" class="dark">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,8 +8,6 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
-
 
     <style>
         body {
@@ -26,32 +24,26 @@
             -moz-appearance: textfield;
         }
 
-        /* Estilos para o botão de aba ativo, agora com suporte a temas */
         .tab-button.active {
-            border-color: #f59e0b; /* amber-500 */
+            border-color: #f59e0b;
             background-color: #f59e0b;
             color: white;
         }
     </style>
 </head>
-<body class="bg-gray-100 dark:bg-gray-900 text-slate-700 dark:text-slate-300 flex items-center justify-center min-h-screen p-4 transition-colors duration-300">
+<body class="bg-gray-900 text-slate-300 flex items-center justify-center min-h-screen p-4 transition-colors duration-300">
 
-    <div class="container bg-white dark:bg-gray-800 p-6 sm:p-8 rounded-2xl shadow-2xl max-w-2xl w-full mx-auto space-y-6">
+    <div class="container bg-gray-800 p-6 sm:p-8 rounded-2xl shadow-2xl max-w-2xl w-full mx-auto space-y-6">
         <header class="text-center relative">
-            <h1 class="text-3xl sm:text-4xl font-extrabold text-amber-500 dark:text-amber-400">Calculadora The Crims</h1>
-            <p class="text-slate-500 dark:text-slate-400 mt-1">Ferramentas para otimizar seu jogo.</p>
-
-            <button id="theme-toggle" class="absolute top-0 right-0 p-2 rounded-full text-slate-500 dark:text-slate-400 hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors">
-                <i data-lucide="sun" id="theme-icon-sun" class="hidden"></i>
-                <i data-lucide="moon" id="theme-icon-moon" class="hidden"></i>
-            </button>
+            <h1 class="text-3xl sm:text-4xl font-extrabold text-amber-400">Calculadora The Crims</h1>
+            <p class="text-slate-400 mt-1">Ferramentas para otimizar seu jogo.</p>
         </header>
 
-        <nav class="flex border-b border-gray-200 dark:border-gray-700">
-            <button class="tab-button flex-1 py-3 px-4 text-sm sm:text-base font-semibold text-slate-500 dark:text-slate-400 border-b-2 border-transparent transition-colors duration-300 hover:text-amber-500 dark:hover:text-amber-400" data-tab-id="timeCalculatorTabContent">
+        <nav class="flex border-b border-gray-700">
+            <button class="tab-button flex-1 py-3 px-4 text-sm sm:text-base font-semibold text-slate-400 border-b-2 border-transparent transition-colors duration-300 hover:text-amber-400" data-tab-id="timeCalculatorTabContent">
                 Calculadora de Tempo
             </button>
-            <button class="tab-button flex-1 py-3 px-4 text-sm sm:text-base font-semibold text-slate-500 dark:text-slate-400 border-b-2 border-transparent transition-colors duration-300 hover:text-amber-500 dark:hover:text-amber-400" data-tab-id="pointsCalculatorTabContent">
+            <button class="tab-button flex-1 py-3 px-4 text-sm sm:text-base font-semibold text-slate-400 border-b-2 border-transparent transition-colors duration-300 hover:text-amber-400" data-tab-id="pointsCalculatorTabContent">
                 Calculadora de Pontos
             </button>
         </nav>
@@ -60,45 +52,45 @@
             <div id="timeCalculatorTabContent" class="tab-content space-y-6">
                 <section class="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div class="space-y-2">
-                        <label for="roundStartDate" class="font-semibold text-slate-800 dark:text-slate-200">Início da Rodada (Real):</label>
-                        <input type="datetime-local" id="roundStartDate" class="w-full bg-gray-100 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-lg p-2.5 text-slate-800 dark:text-slate-200 focus:ring-2 focus:ring-amber-500 focus:border-amber-500 outline-none">
+                        <label for="roundStartDate" class="font-semibold text-slate-200">Início da Rodada (Real):</label>
+                        <input type="datetime-local" id="roundStartDate" class="w-full bg-gray-700 border border-gray-600 rounded-lg p-2.5 text-slate-200 focus:ring-2 focus:ring-amber-500 focus:border-amber-500 outline-none">
                     </div>
                     <div class="space-y-2">
-                        <label for="currentRoundEndDate" class="font-semibold text-slate-800 dark:text-slate-200">Fim da Rodada (Real):</label>
-                        <input type="datetime-local" id="currentRoundEndDate" readonly class="w-full bg-gray-200 dark:bg-gray-900 border border-gray-300 dark:border-gray-700 rounded-lg p-2.5 text-slate-500 dark:text-slate-400 cursor-not-allowed">
+                        <label for="currentRoundEndDate" class="font-semibold text-slate-200">Fim da Rodada (Real):</label>
+                        <input type="datetime-local" id="currentRoundEndDate" readonly class="w-full bg-gray-900 border border-gray-700 rounded-lg p-2.5 text-slate-400 cursor-not-allowed">
                     </div>
                 </section>
                 <section>
-                    <h3 class="font-bold text-lg text-slate-800 dark:text-slate-200 mb-2">Tempo Atual no Jogo</h3>
-                    <div class="grid grid-cols-3 gap-3 text-center bg-gray-200/50 dark:bg-gray-900/50 p-4 rounded-lg">
+                    <h3 class="font-bold text-lg text-slate-200 mb-2">Tempo Atual no Jogo</h3>
+                    <div class="grid grid-cols-3 gap-3 text-center bg-gray-900/50 p-4 rounded-lg">
                         <div>
-                            <span class="text-xs text-slate-500 dark:text-slate-400">Dia</span>
-                            <input type="number" id="currentDay" readonly class="w-full bg-transparent text-amber-500 dark:text-amber-400 text-2xl font-bold text-center outline-none">
+                            <span class="text-xs text-slate-400">Dia</span>
+                            <input type="number" id="currentDay" readonly class="w-full bg-transparent text-amber-400 text-2xl font-bold text-center outline-none">
                         </div>
                         <div>
-                            <span class="text-xs text-slate-500 dark:text-slate-400">Hora</span>
-                            <input type="number" id="currentHour" readonly class="w-full bg-transparent text-amber-500 dark:text-amber-400 text-2xl font-bold text-center outline-none">
+                            <span class="text-xs text-slate-400">Hora</span>
+                            <input type="number" id="currentHour" readonly class="w-full bg-transparent text-amber-400 text-2xl font-bold text-center outline-none">
                         </div>
                         <div>
-                            <span class="text-xs text-slate-500 dark:text-slate-400">Minuto</span>
-                            <input type="number" id="currentMinute" readonly class="w-full bg-transparent text-amber-500 dark:text-amber-400 text-2xl font-bold text-center outline-none">
+                            <span class="text-xs text-slate-400">Minuto</span>
+                            <input type="number" id="currentMinute" readonly class="w-full bg-transparent text-amber-400 text-2xl font-bold text-center outline-none">
                         </div>
                     </div>
                 </section>
                 <section>
-                    <h3 class="font-bold text-lg text-slate-800 dark:text-slate-200 mb-2">Tempo Desejado no Jogo</h3>
+                    <h3 class="font-bold text-lg text-slate-200 mb-2">Tempo Desejado no Jogo</h3>
                     <div class="grid grid-cols-3 gap-3 text-center">
                         <div>
-                            <span class="text-xs text-slate-500 dark:text-slate-400">Dia</span>
-                            <input type="number" id="targetDay" placeholder="Dia" min="1" class="w-full bg-gray-100 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-lg p-2.5 text-center focus:ring-2 focus:ring-amber-500 focus:border-amber-500 outline-none mt-1">
+                            <span class="text-xs text-slate-400">Dia</span>
+                            <input type="number" id="targetDay" placeholder="Dia" min="1" class="w-full bg-gray-700 border border-gray-600 rounded-lg p-2.5 text-center focus:ring-2 focus:ring-amber-500 focus:border-amber-500 outline-none mt-1">
                         </div>
                         <div>
-                            <span class="text-xs text-slate-500 dark:text-slate-400">Hora</span>
-                            <input type="number" id="targetHour" placeholder="Hora" min="0" max="23" class="w-full bg-gray-100 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-lg p-2.5 text-center focus:ring-2 focus:ring-amber-500 focus:border-amber-500 outline-none mt-1">
+                            <span class="text-xs text-slate-400">Hora</span>
+                            <input type="number" id="targetHour" placeholder="Hora" min="0" max="23" class="w-full bg-gray-700 border border-gray-600 rounded-lg p-2.5 text-center focus:ring-2 focus:ring-amber-500 focus:border-amber-500 outline-none mt-1">
                         </div>
                         <div>
-                            <span class="text-xs text-slate-500 dark:text-slate-400">Minuto</span>
-                            <input type="number" id="targetMinute" placeholder="Minuto" min="0" max="59" class="w-full bg-gray-100 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-lg p-2.5 text-center focus:ring-2 focus:ring-amber-500 focus:border-amber-500 outline-none mt-1">
+                            <span class="text-xs text-slate-400">Minuto</span>
+                            <input type="number" id="targetMinute" placeholder="Minuto" min="0" max="59" class="w-full bg-gray-700 border border-gray-600 rounded-lg p-2.5 text-center focus:ring-2 focus:ring-amber-500 focus:border-amber-500 outline-none mt-1">
                         </div>
                     </div>
                 </section>
@@ -106,20 +98,20 @@
                     <button id="calculateTimeButton" class="w-full bg-amber-500 hover:bg-amber-600 text-white font-bold py-3 px-4 rounded-lg transition-transform transform hover:scale-105">Calcular</button>
                     <button id="resetTimeCalculatorButton" class="w-full bg-red-600 hover:bg-red-700 text-white font-bold py-3 px-4 rounded-lg transition-transform transform hover:scale-105">Redefinir</button>
                 </div>
-                <div id="result" class="text-center font-semibold text-green-600 dark:text-green-400 min-h-[1.5em]"></div>
-                <div id="localTimeResult" class="text-center text-sm text-slate-500 dark:text-slate-400 min-h-[1.25em]"></div>
-                <div id="errorMessage" class="text-center font-semibold text-red-600 dark:text-red-500 min-h-[1.5em]"></div>
+                <div id="result" class="text-center font-semibold text-green-400 min-h-[1.5em]"></div>
+                <div id="localTimeResult" class="text-center text-sm text-slate-400 min-h-[1.25em]"></div>
+                <div id="errorMessage" class="text-center font-semibold text-red-500 min-h-[1.5em]"></div>
             </div>
 
             <div id="pointsCalculatorTabContent" class="tab-content hidden space-y-6">
                 <section class="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div class="space-y-2">
-                        <label for="totalPoints" class="font-semibold text-slate-800 dark:text-slate-200">Total de Pontos:</label>
-                        <input type="number" id="totalPoints" min="0" value="10000" class="w-full bg-gray-100 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-lg p-2.5 text-slate-800 dark:text-slate-200 focus:ring-2 focus:ring-amber-500 focus:border-amber-500 outline-none">
+                        <label for="totalPoints" class="font-semibold text-slate-200">Total de Pontos:</label>
+                        <input type="number" id="totalPoints" min="0" value="10000" class="w-full bg-gray-700 border border-gray-600 rounded-lg p-2.5 text-slate-200 focus:ring-2 focus:ring-amber-500 focus:border-amber-500 outline-none">
                     </div>
                     <div class="space-y-2">
-                        <label for="playerClass" class="font-semibold text-slate-800 dark:text-slate-200">Carregar Padrão da Classe:</label>
-                        <select id="playerClass" class="w-full bg-gray-100 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-lg p-2.5 text-slate-800 dark:text-slate-200 focus:ring-2 focus:ring-amber-500 focus:border-amber-500 outline-none">
+                        <label for="playerClass" class="font-semibold text-slate-200">Carregar Padrão da Classe:</label>
+                        <select id="playerClass" class="w-full bg-gray-700 border border-gray-600 rounded-lg p-2.5 text-slate-200 focus:ring-2 focus:ring-amber-500 focus:border-amber-500 outline-none">
                             <option value="assassino">Assassino de Aluguel</option>
                             <option value="cafetao">Cafetão</option>
                             <option value="corretor">Corretor</option>
@@ -130,14 +122,14 @@
                     </div>
                 </section>
 
-                <section id="pointsDistributionSection" class="bg-gray-200/50 dark:bg-gray-900/50 p-4 rounded-lg space-y-3">
+                <section id="pointsDistributionSection" class="bg-gray-900/50 p-4 rounded-lg space-y-3">
                 </section>
 
                 <div class="flex flex-col sm:flex-row gap-3 pt-4">
                     <button id="copyPointsButton" class="w-full bg-sky-600 hover:bg-sky-700 text-white font-bold py-3 px-4 rounded-lg transition-transform transform hover:scale-105">Copiar Build</button>
                     <button id="resetPointsCalculatorButton" class="w-full bg-red-600 hover:bg-red-700 text-white font-bold py-3 px-4 rounded-lg transition-transform transform hover:scale-105">Redefinir Padrão</button>
                 </div>
-                <div id="pointsErrorMessage" class="text-center font-semibold text-red-600 dark:text-red-500 min-h-[1.5em]"></div>
+                <div id="pointsErrorMessage" class="text-center font-semibold text-red-500 min-h-[1.5em]"></div>
             </div>
         </main>
     </div>
@@ -161,10 +153,6 @@
 
         // --- SELETORES DE ELEMENTOS DOM ---
         const DOMElements = {
-            // ... (elementos existentes)
-            themeToggleButton: document.getElementById('theme-toggle'),
-            themeIconSun: document.getElementById('theme-icon-sun'),
-            themeIconMoon: document.getElementById('theme-icon-moon'),
             tabs: document.querySelectorAll('.tab-button'),
             tabContents: document.querySelectorAll('.tab-content'),
             roundStartDate: document.getElementById('roundStartDate'),
@@ -201,46 +189,6 @@
             setInputValue: (element, value) => { element.value = value; }
         };
 
-        // --- NOVO: MÓDULO DE CONTROLE DE TEMA (THEME SWITCHER) ---
-        const ThemeSwitcher = {
-            init: () => {
-                // Evento de clique no botão de alternância
-                DOMElements.themeToggleButton.addEventListener('click', ThemeSwitcher.toggleTheme);
-                // Aplica o tema inicial
-                ThemeSwitcher.applyInitialTheme();
-            },
-            applyInitialTheme: () => {
-                // Verifica se há tema salvo no localStorage, senão verifica a preferência do sistema
-                const savedTheme = localStorage.getItem('theme');
-                const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-
-                if (savedTheme === 'dark' || (!savedTheme && prefersDark)) {
-                    ThemeSwitcher.setTheme('dark');
-                } else {
-                    ThemeSwitcher.setTheme('light');
-                }
-            },
-            toggleTheme: () => {
-                // Alterna o tema atual
-                const currentTheme = document.documentElement.classList.contains('dark') ? 'dark' : 'light';
-                const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
-                ThemeSwitcher.setTheme(newTheme);
-                // Salva a nova preferência no localStorage
-                localStorage.setItem('theme', newTheme);
-            },
-            setTheme: (theme) => {
-                if (theme === 'dark') {
-                    document.documentElement.classList.add('dark');
-                    DOMElements.themeIconSun.classList.remove('hidden'); // Mostra o sol no tema escuro
-                    DOMElements.themeIconMoon.classList.add('hidden');
-                } else {
-                    document.documentElement.classList.remove('dark');
-                    DOMElements.themeIconSun.classList.add('hidden');
-                    DOMElements.themeIconMoon.classList.remove('hidden'); // Mostra a lua no tema claro
-                }
-            }
-        };
-
         // --- LÓGICA DAS ABAS ---
         function showTab(tabId) {
             DOMElements.tabContents.forEach(content => content.classList.add('hidden'));
@@ -253,7 +201,6 @@
 
         // --- LÓGICA DA CALCULADORA DE TEMPO ---
         const TimeCalculator = {
-            // ... (seu código da calculadora de tempo permanece o mesmo)
             calculateCurrentGameTime: () => {
                 if (!DOMElements.roundStartDate.value) return false;
                 const roundStart = new Date(DOMElements.roundStartDate.value);
@@ -336,6 +283,7 @@
                 TimeCalculator.calculateCurrentRoundEndDate();
                 TimeCalculator.calculateCurrentGameTime();
 
+                // Carrega os valores salvos do Tempo Desejado ou usa os atuais
                 DOMElements.targetDay.value = localStorage.getItem('targetDay') || DOMElements.currentDay.value;
                 DOMElements.targetHour.value = localStorage.getItem('targetHour') || DOMElements.currentHour.value;
                 DOMElements.targetMinute.value = localStorage.getItem('targetMinute') || DOMElements.currentMinute.value;
@@ -346,7 +294,6 @@
 
         // --- LÓGICA DA CALCULADORA DE PONTOS ---
         const PointsCalculator = {
-            // ... (seu código da calculadora de pontos permanece o mesmo, mas a UI precisa ser adaptada)
             init: () => {
                 PointsCalculator.buildDistributionUI();
                 PointsCalculator.loadPreset();
@@ -360,26 +307,25 @@
                 DOMElements.copyPointsButton.addEventListener('click', PointsCalculator.copyToClipboard);
                 DOMElements.resetPointsCalculatorButton.addEventListener('click', PointsCalculator.loadPreset);
             },
-            // A UI agora usa classes adaptáveis
             buildDistributionUI: () => {
                 let html = '';
                 Object.keys(CONFIG.CLASS_DISTRIBUTIONS.assassino).forEach(attr => {
                     html += `
-                                <div class="grid grid-cols-12 gap-2 items-center">
-                                    <label class="col-span-3 font-semibold text-slate-800 dark:text-slate-200">${attr}</label>
-                                    <span id="points-for-${attr}" class="col-span-4 text-green-600 dark:text-green-400 font-bold">0</span>
-                                    <div class="col-span-5 flex items-center">
-                                        <input type="number" id="percent-for-${attr}" data-attr="${attr}" class="w-full bg-gray-100 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-lg p-1.5 text-center focus:ring-1 focus:ring-amber-500 outline-none percent-input" min="0" max="100">
-                                        <span class="ml-2 text-slate-700 dark:text-slate-300">%</span>
-                                    </div>
+                            <div class="grid grid-cols-12 gap-2 items-center">
+                                <label class="col-span-3 font-semibold text-slate-200">${attr}</label>
+                                <span id="points-for-${attr}" class="col-span-4 text-green-400 font-bold">0</span>
+                                <div class="col-span-5 flex items-center">
+                                    <input type="number" id="percent-for-${attr}" data-attr="${attr}" class="w-full bg-gray-700 border border-gray-600 rounded-lg p-1.5 text-center focus:ring-1 focus:ring-amber-500 outline-none percent-input" min="0" max="100">
+                                    <span class="ml-2">%</span>
                                 </div>
-                            `;
+                            </div>
+                        `;
                 });
                 html += `
-                            <div class="grid grid-cols-12 gap-2 items-center pt-2 border-t border-gray-300 dark:border-gray-600">
-                                <label class="col-span-7 font-bold text-slate-800 dark:text-slate-200">Total %</label>
-                                <span id="total-percent" class="col-span-5 font-bold text-center">100%</span>
-                            </div>`;
+                        <div class="grid grid-cols-12 gap-2 items-center pt-2 border-t border-gray-600">
+                            <label class="col-span-7 font-bold text-slate-200">Total %</label>
+                            <span id="total-percent" class="col-span-5 font-bold text-center">100%</span>
+                        </div>`;
                 DOMElements.pointsDistributionSection.innerHTML = html;
             },
             updateDistribution: () => {
@@ -397,14 +343,9 @@
 
                 const totalPercentEl = document.getElementById('total-percent');
                 totalPercentEl.textContent = `${(totalPercent * 100).toFixed(0)}%`;
-                // As cores do total de porcentagem agora se adaptam
-                const isTotal100 = Math.round(totalPercent * 100) === 100;
-                totalPercentEl.classList.toggle('text-red-600', !isTotal100);
-                totalPercentEl.classList.toggle('dark:text-red-500', !isTotal100);
-                totalPercentEl.classList.toggle('text-green-700', isTotal100);
-                totalPercentEl.classList.toggle('dark:text-green-500', isTotal100);
-
-                DOMElements.pointsErrorMessage.textContent = !isTotal100 ? 'A soma das porcentagens deve ser 100%.' : '';
+                totalPercentEl.classList.toggle('text-red-500', Math.round(totalPercent * 100) !== 100);
+                totalPercentEl.classList.toggle('text-green-600', Math.round(totalPercent * 100) === 100);
+                DOMElements.pointsErrorMessage.textContent = Math.round(totalPercent * 100) !== 100 ? 'A soma das porcentagens deve ser 100%.' : '';
             },
             loadPreset: () => {
                 const selectedClass = DOMElements.playerClass.value;
@@ -438,12 +379,6 @@
 
         // --- FUNÇÃO DE INICIALIZAÇÃO PRINCIPAL ---
         function main() {
-            // Inicializa os ícones do Lucide
-            lucide.createIcons();
-
-            // NOVO: Inicializa o controle de tema
-            ThemeSwitcher.init();
-
             // Configura o restante da aplicação
             DOMElements.tabs.forEach(tab => tab.addEventListener('click', () => showTab(tab.dataset.tabId)));
 
