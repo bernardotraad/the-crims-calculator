@@ -384,20 +384,27 @@
 
         // --- FUNÇÃO DE INICIALIZAÇÃO PRINCIPAL ---
         function main() {
-            // Primeiro, configura o tema para evitar piscar a tela
-            const theme = localStorage.getItem('theme') || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
-            if (theme === 'dark') {
-                document.documentElement.classList.add('dark');
-            }
-            DOMElements.themeIconLight.classList.toggle('hidden', theme === 'dark');
-            DOMElements.themeIconDark.classList.toggle('hidden', theme === 'light');
+            // Lógica de Tema reescrita e simplificada
+            const setTheme = (theme) => {
+                localStorage.setItem('theme', theme);
+                if (theme === 'dark') {
+                    document.documentElement.classList.add('dark');
+                    DOMElements.themeIconLight.classList.remove('hidden');
+                    DOMElements.themeIconDark.classList.add('hidden');
+                } else {
+                    document.documentElement.classList.remove('dark');
+                    DOMElements.themeIconLight.classList.add('hidden');
+                    DOMElements.themeIconDark.classList.remove('hidden');
+                }
+            };
 
             DOMElements.themeToggle.addEventListener('click', () => {
-                const isDark = document.documentElement.classList.toggle('dark');
-                localStorage.setItem('theme', isDark ? 'dark' : 'light');
-                DOMElements.themeIconLight.classList.toggle('hidden');
-                DOMElements.themeIconDark.classList.toggle('hidden');
+                const currentTheme = localStorage.getItem('theme');
+                setTheme(currentTheme === 'dark' ? 'light' : 'dark');
             });
+
+            // Inicializa o tema na carga da página
+            setTheme(localStorage.getItem('theme') || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'));
 
             // Configura o restante da aplicação
             DOMElements.tabs.forEach(tab => tab.addEventListener('click', () => showTab(tab.dataset.tabId)));
@@ -428,7 +435,6 @@
             }, 1000);
         }
 
-        // Garante que o DOM esteja pronto antes de executar o script
         document.addEventListener('DOMContentLoaded', main);
     </script>
 </body>
