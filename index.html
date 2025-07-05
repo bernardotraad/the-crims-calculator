@@ -4,55 +4,67 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Calculadora The Crims</title>
+    <!-- Tailwind CSS CDN para estilização rápida e responsiva -->
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
+        /* Estilos base para o corpo da página */
         body {
             font-family: 'Inter', sans-serif;
-            background-color: #1a202c; /* Dark background */
-            color: #e2e8f0; /* Light text */
+            background-color: #1a202c; /* Fundo escuro */
+            color: #e2e8f0; /* Texto claro */
             display: flex;
             justify-content: center;
             align-items: center;
-            min-height: 100vh;
+            min-height: 100vh; /* Ocupa a altura total da viewport */
             margin: 0;
-            padding: 20px;
+            padding: 1rem; /* Preenchimento para dispositivos móveis */
             box-sizing: border-box;
         }
+
+        /* Estilização do container principal */
         .container {
-            background-color: #2d3748; /* Darker blue-gray */
-            padding: 32px;
-            border-radius: 12px; /* Rounded corners */
-            box-shadow: 0 10px 15px rgba(0, 0, 0, 0.2);
-            max-width: 600px;
+            background-color: #2d3748; /* Azul-acinzentado mais escuro */
+            padding: 2rem; /* Preenchimento aumentado */
+            border-radius: 0.75rem; /* Cantos arredondados */
+            box-shadow: 0 10px 15px rgba(0, 0, 0, 0.2); /* Sombra sutil */
+            max-width: 600px; /* Largura máxima para desktop */
             width: 100%;
             text-align: center;
             display: flex;
             flex-direction: column;
-            gap: 20px; /* Space between sections */
+            gap: 1.5rem; /* Espaçamento entre as seções */
         }
+
+        /* Título principal */
         h1 {
-            font-size: 2rem; /* Larger heading */
-            font-weight: 700; /* font-bold */
-            margin-bottom: 16px;
-            color: #4299e1; /* Blue color for heading */
+            font-size: 2.25rem; /* Título maior para impacto */
+            font-weight: 700; /* Negrito */
+            margin-bottom: 1rem;
+            color: #4299e1; /* Azul de destaque */
         }
+
+        /* Estilização da navegação por abas */
         .tab-navigation {
             display: flex;
             justify-content: center;
-            margin-bottom: 20px;
+            margin-bottom: 1.25rem;
             border-bottom: 2px solid #4a5568;
         }
+
+        /* Estilização dos botões de aba */
         .tab-button {
             background-color: #4a5568;
             color: #e2e8f0;
-            padding: 12px 20px;
+            padding: 0.75rem 1.25rem;
             border: none;
-            border-radius: 8px 8px 0 0;
+            border-radius: 0.5rem 0.5rem 0 0; /* Cantos superiores arredondados */
             cursor: pointer;
             font-size: 1.125rem;
             font-weight: 600;
             transition: background-color 0.3s ease;
-            margin: 0 2px;
+            margin: 0 0.125rem; /* Pequena margem entre os botões */
+            flex-grow: 1; /* Faz os botões preencherem o espaço */
+            text-align: center;
         }
         .tab-button:hover {
             background-color: #6a768a;
@@ -62,47 +74,57 @@
             color: white;
             border-bottom: 2px solid #4299e1;
         }
+
+        /* Estilização do conteúdo das abas */
         .tab-content {
-            display: none; /* Hidden by default */
+            display: none; /* Escondido por padrão */
+            flex-direction: column; /* Usa flex para o layout interno */
+            gap: 1.25rem; /* Espaçamento entre as seções de conteúdo */
         }
         .tab-content.active {
             display: flex;
-            flex-direction: column;
-            gap: 20px;
         }
+
+        /* Títulos de seção dentro das abas */
         .section-title {
-            font-size: 1.25rem; /* text-xl */
+            font-size: 1.25rem;
             font-weight: 600;
-            color: #a0aec0; /* Lighter gray for section titles */
-            margin-bottom: 12px;
+            color: #a0aec0;
+            margin-bottom: 0.75rem;
             border-bottom: 1px solid #4a5568;
-            padding-bottom: 8px;
+            padding-bottom: 0.5rem;
         }
+
+        /* Estilização de grupos de input */
         .input-group {
-            margin-bottom: 16px;
+            margin-bottom: 1rem;
             text-align: left;
         }
         .input-group label {
             display: block;
-            margin-bottom: 8px;
+            margin-bottom: 0.5rem;
             font-weight: 600;
         }
+
+        /* Contêiner flexível para inputs de tempo */
         .time-inputs, .points-inputs {
             display: flex;
-            gap: 8px;
+            gap: 0.5rem;
+            flex-wrap: wrap; /* Permite quebrar linha em telas pequenas */
         }
         .time-inputs input[type="number"],
         .points-inputs input[type="number"] {
-            flex: 1;
-            padding: 10px;
-            border-radius: 8px;
+            flex: 1 1 calc(33% - 0.5rem); /* Aproximadamente 3 inputs por linha em telas maiores */
+            padding: 0.625rem;
+            border-radius: 0.5rem;
             border: 1px solid #4a5568;
             background-color: #4a5568;
             color: #e2e8f0;
             font-size: 1rem;
             text-align: center;
-            -moz-appearance: textfield;
+            -moz-appearance: textfield; /* Esconde setas no Firefox */
         }
+        /* Esconde setas em inputs numéricos para Chrome/Safari */
         .time-inputs input[type="number"]::-webkit-outer-spin-button,
         .time-inputs input[type="number"]::-webkit-inner-spin-button,
         .points-inputs input[type="number"]::-webkit-outer-spin-button,
@@ -110,32 +132,41 @@
             -webkit-appearance: none;
             margin: 0;
         }
+
+        /* Estilização para inputs de data/hora local e selects */
         input[type="datetime-local"],
         select {
             width: 100%;
-            padding: 10px;
-            border-radius: 8px;
+            padding: 0.625rem;
+            border-radius: 0.5rem;
             border: 1px solid #4a5568;
             background-color: #4a5568;
             color: #e2e8f0;
             font-size: 1rem;
         }
+
+        /* Estilização de inputs somente leitura */
         input[readonly] {
             background-color: #3d485b;
             cursor: default;
             opacity: 0.9;
         }
+
+        /* Estilização de grupos de botões */
         .button-group {
             display: flex;
-            gap: 16px;
-            margin-top: 24px;
+            gap: 1rem;
+            margin-top: 1.5rem;
+            flex-wrap: wrap; /* Permite que os botões quebrem linha em telas pequenas */
         }
+
+        /* Estilização geral de botões */
         button {
-            flex: 1;
+            flex: 1 1 calc(50% - 0.5rem); /* Dois botões por linha em telas maiores */
             background-color: #4299e1;
             color: white;
-            padding: 12px 24px;
-            border-radius: 8px;
+            padding: 0.75rem 1.5rem;
+            border-radius: 0.5rem;
             font-size: 1.125rem;
             font-weight: 700;
             border: none;
@@ -149,35 +180,45 @@
         button:active {
             transform: translateY(0);
         }
-        #resetButton {
-            background-color: #e53e3e; /* Red for reset */
+
+        /* Estilização específica do botão de redefinir */
+        #resetTimeCalculatorButton, #resetPointsCalculatorButton {
+            background-color: #e53e3e; /* Cor vermelha */
         }
-        #resetButton:hover {
+        #resetTimeCalculatorButton:hover, #resetPointsCalculatorButton:hover {
             background-color: #c53030;
         }
+
+        /* Estilização da exibição de resultados */
         #result, #pointsResult {
-            margin-top: 24px;
+            margin-top: 1.5rem;
             font-size: 1.25rem;
             font-weight: 700;
-            color: #68d391;
-            min-height: 30px;
+            color: #68d391; /* Destaque verde */
+            min-height: 1.875rem; /* Garante espaço mesmo quando vazio */
         }
+
+        /* Estilização do resultado da hora local */
         #localTimeResult {
             font-size: 1rem;
             font-weight: 500;
             color: #a0aec0;
-            margin-top: 8px;
+            margin-top: 0.5rem;
         }
+
+        /* Estilização de mensagens de erro */
         .error-message {
-            color: #fc8181;
-            margin-top: 10px;
+            color: #fc8181; /* Cor vermelha para erro */
+            margin-top: 0.625rem;
             font-size: 0.875rem;
             font-weight: 500;
         }
+
+        /* Exibição do resultado de atributos na calculadora de pontos */
         .attribute-result {
             display: flex;
             justify-content: space-between;
-            padding: 8px 0;
+            padding: 0.5rem 0;
             border-bottom: 1px dashed #4a5568;
         }
         .attribute-result:last-child {
@@ -190,6 +231,28 @@
         .attribute-value {
             color: #68d391;
         }
+
+        /* Ajustes responsivos para telas menores */
+        @media (max-width: 480px) {
+            .container {
+                padding: 1rem;
+            }
+            h1 {
+                font-size: 1.75rem;
+            }
+            .tab-button {
+                font-size: 1rem;
+                padding: 0.625rem 0.75rem;
+            }
+            .time-inputs input[type="number"],
+            .points-inputs input[type="number"],
+            button {
+                flex: 1 1 100%; /* Empilha inputs e botões em telas muito pequenas */
+            }
+            .button-group {
+                flex-direction: column;
+            }
+        }
     </style>
 </head>
 <body>
@@ -197,11 +260,11 @@
         <h1>Calculadora The Crims</h1>
 
         <div class="tab-navigation">
-            <button class="tab-button active" onclick="showTab('timeCalculatorTabContent')">Calculadora de Tempo</button>
-            <button class="tab-button" onclick="showTab('pointsCalculatorTabContent')">Calculadora de Pontos</button>
+            <button class="tab-button active" data-tab-id="timeCalculatorTabContent">Calculadora de Tempo</button>
+            <button class="tab-button" data-tab-id="pointsCalculatorTabContent">Calculadora de Pontos</button>
         </div>
 
-        <!-- Time Calculator Tab Content -->
+        <!-- Conteúdo da Aba da Calculadora de Tempo -->
         <div id="timeCalculatorTabContent" class="tab-content active">
             <div>
                 <div class="section-title">Informações da Rodada</div>
@@ -241,8 +304,8 @@
             </div>
 
             <div class="button-group">
-                <button onclick="calculateTime()">Calcular Tempo Real</button>
-                <button id="resetTimeCalculatorButton" onclick="resetTimeCalculator()">Redefinir</button>
+                <button id="calculateTimeButton">Calcular Tempo Real</button>
+                <button id="resetTimeCalculatorButton">Redefinir</button>
             </div>
 
             <div id="result"></div>
@@ -250,7 +313,7 @@
             <div id="errorMessage"></div>
         </div>
 
-        <!-- Points Calculator Tab Content -->
+        <!-- Conteúdo da Aba da Calculadora de Pontos -->
         <div id="pointsCalculatorTabContent" class="tab-content">
             <div>
                 <div class="section-title">Calculadora de Pontos de Atributo</div>
@@ -272,331 +335,409 @@
             </div>
 
             <div class="button-group">
-                <button onclick="calculatePoints()">Calcular Distribuição</button>
-                <button id="resetPointsCalculatorButton" onclick="resetPointsCalculator()">Redefinir</button>
+                <button id="calculatePointsButton">Calcular Distribuição</button>
+                <button id="resetPointsCalculatorButton">Redefinir</button>
             </div>
 
             <div id="pointsResult"></div>
-            <div id="pointsErrorMessage" class="error-message"></div>
+            <div id="pointsErrorMessage"></div>
         </div>
     </div>
 
-    <script>
-        // --- Global Constants ---
-        const REAL_HOURS_PER_GAME_DAY = 6;
-        const GAME_HOURS_PER_REAL_HOUR = 24 / REAL_HOURS_PER_GAME_DAY;
-        const GAME_MINUTES_PER_REAL_MINUTE = GAME_HOURS_PER_REAL_HOUR * 60 / 60;
+    <script type="module">
+        // app.js - Módulo principal da aplicação The Crims Calculator
 
-        const DEFAULT_ROUND_START_DATE = new Date(2025, 6, 2, 12, 0); // Month is 0-indexed (July is 6)
-        const ROUND_DURATION_GAME_DAYS = 52; // Game round lasts 52 days
+        // Objeto global da aplicação para encapsular todos os módulos
+        const App = {};
 
-        // --- Utility Functions ---
-        function formatDateForInput(date) {
-            const year = date.getFullYear();
-            const month = String(date.getMonth() + 1).padStart(2, '0');
-            const day = String(date.getDate()).padStart(2, '0');
-            const hours = String(date.getHours()).padStart(2, '0');
-            const minutes = String(date.getMinutes()).padStart(2, '0');
-            return `${year}-${month}-${day}T${hours}:${minutes}`;
-        }
-
-        function clearMessages(elementIds) {
-            elementIds.forEach(id => {
-                const element = document.getElementById(id);
-                if (element) element.textContent = '';
-            });
-        }
-
-        // --- Tab Navigation Logic ---
-        function showTab(tabId) {
-            const tabContents = document.querySelectorAll('.tab-content');
-            tabContents.forEach(content => {
-                content.classList.remove('active');
-            });
-
-            const tabButtons = document.querySelectorAll('.tab-button');
-            tabButtons.forEach(button => {
-                button.classList.remove('active');
-            });
-
-            document.getElementById(tabId).classList.add('active');
-            document.querySelector(`.tab-button[onclick*="${tabId}"]`).classList.add('active');
-
-            // Recalculate current game time when switching to time calculator tab
-            if (tabId === 'timeCalculatorTabContent') {
-                calculateCurrentGameTime();
-                calculateCurrentRoundEndDate(); // Also calculate end date
-            }
-            // Clear messages when switching tabs
-            clearMessages(['errorMessage', 'result', 'localTimeResult', 'pointsErrorMessage', 'pointsResult']);
-        }
-
-        // --- Time Calculator Functions ---
-        function calculateCurrentGameTime() {
-            const roundStartDateInput = document.getElementById('roundStartDate').value;
-            const errorDiv = document.getElementById('errorMessage');
-
-            if (!roundStartDateInput) {
-                document.getElementById('currentDay').value = '';
-                document.getElementById('currentHour').value = '';
-                document.getElementById('currentMinute').value = '';
-                return false;
-            }
-
-            const roundStartDate = new Date(roundStartDateInput);
-            const now = new Date();
-
-            const diffMs = now.getTime() - roundStartDate.getTime();
-
-            if (diffMs < 0) {
-                document.getElementById('currentDay').value = 1;
-                document.getElementById('currentHour').value = 0;
-                document.getElementById('currentMinute').value = 0;
-                return false;
-            }
-
-            const diffRealMinutes = diffMs / (1000 * 60);
-            const diffGameMinutes = diffRealMinutes * GAME_MINUTES_PER_REAL_MINUTE;
-
-            const gameDays = Math.floor(diffGameMinutes / (24 * 60));
-            const remainingMinutesGame = diffGameMinutes % (24 * 60);
-            const gameHours = Math.floor(remainingMinutesGame / 60);
-            const gameMinutes = Math.floor(remainingMinutesGame % 60);
-
-            const currentDayGame = gameDays + 1;
-            const currentHourGame = gameHours;
-            const currentMinuteGame = gameMinutes;
-
-            document.getElementById('currentDay').value = currentDayGame;
-            document.getElementById('currentHour').value = currentHourGame;
-            document.getElementById('currentMinute').value = currentMinuteGame;
-
-            return true;
-        }
-
-        function calculateCurrentRoundEndDate() {
-            const roundStartDateInput = document.getElementById('roundStartDate').value;
-            const currentRoundEndDateInput = document.getElementById('currentRoundEndDate');
-
-            if (!roundStartDateInput) {
-                currentRoundEndDateInput.value = '';
-                return;
-            }
-
-            const roundStartDate = new Date(roundStartDateInput);
-            // Calculate end date: Start Date + (52 game days * 6 real hours/game day)
-            const endDateMs = roundStartDate.getTime() + (ROUND_DURATION_GAME_DAYS * REAL_HOURS_PER_GAME_DAY * 60 * 60 * 1000);
-            const currentRoundEndDate = new Date(endDateMs);
-
-            currentRoundEndDateInput.value = formatDateForInput(currentRoundEndDate);
-        }
-
-        function calculateTime() {
-            clearMessages(['result', 'localTimeResult', 'errorMessage']);
-
-            const isCurrentTimeCalculated = calculateCurrentGameTime();
-            if (!isCurrentTimeCalculated) {
-                document.getElementById('errorMessage').textContent = 'Por favor, insira uma Data/Hora de Início da Rodada válida e no passado.';
-                return;
-            }
-
-            const currentDay = parseInt(document.getElementById('currentDay').value);
-            const currentHour = parseInt(document.getElementById('currentHour').value);
-            const currentMinute = parseInt(document.getElementById('currentMinute').value);
-
-            const targetDay = parseInt(document.getElementById('targetDay').value);
-            const targetHour = parseInt(document.getElementById('targetHour').value);
-            const targetMinute = parseInt(document.getElementById('targetMinute').value);
-
-            if (isNaN(targetDay) || isNaN(targetHour) || isNaN(targetMinute)) {
-                document.getElementById('errorMessage').textContent = 'Por favor, preencha os campos de "Tempo Desejado" com números válidos.';
-                return;
-            }
-            if (targetDay < 1) {
-                document.getElementById('errorMessage').textContent = 'O Dia desejado deve ser no mínimo 1.';
-                return;
-            }
-            if (targetHour < 0 || targetHour > 23) {
-                document.getElementById('errorMessage').textContent = 'A Hora desejada deve estar entre 0 e 23.';
-                return;
-            }
-            if (targetMinute < 0 || targetMinute > 59) {
-                document.getElementById('errorMessage').textContent = 'O Minuto desejado deve estar entre 0 e 59.';
-                return;
-            }
-
-            const currentTotalMinutesGame = (currentDay * 24 * 60) + (currentHour * 60) + currentMinute;
-            const targetTotalMinutesGame = (targetDay * 24 * 60) + (targetHour * 60) + targetMinute;
-
-            if (targetTotalMinutesGame < currentTotalMinutesGame) {
-                document.getElementById('errorMessage').textContent = 'O tempo desejado deve ser no futuro em relação ao tempo atual do jogo.';
-                return;
-            }
-
-            const differenceMinutesGame = targetTotalMinutesGame - currentTotalMinutesGame;
-            const differenceRealSeconds = differenceMinutesGame * (60 / GAME_MINUTES_PER_REAL_MINUTE);
-
-            const realHours = Math.floor(differenceRealSeconds / 3600);
-            const remainingSecondsAfterHours = differenceRealSeconds % 3600;
-            const realMinutes = Math.floor(remainingSecondsAfterHours / 60);
-            const realSeconds = Math.floor(remainingSecondsAfterHours % 60);
-
-            let resultText = 'Tempo real necessário: ';
-            if (realHours > 0) {
-                resultText += `${realHours} hora${realHours !== 1 ? 's' : ''}`;
-            }
-            if (realMinutes > 0) {
-                if (realHours > 0) resultText += ', ';
-                resultText += `${realMinutes} minuto${realMinutes !== 1 ? 's' : ''}`;
-            }
-            if (realSeconds > 0) {
-                if (realHours > 0 || realMinutes > 0) resultText += ' e ';
-                resultText += `${realSeconds} segundo${realSeconds !== 1 ? 's' : ''}`;
-            }
-            if (realHours === 0 && realMinutes === 0 && realSeconds === 0) {
-                resultText = 'O tempo atual e o tempo desejado são os mesmos.';
-            }
-
-            document.getElementById('result').textContent = resultText;
-
-            const now = new Date();
-            const targetRealLifeTimeMs = now.getTime() + (differenceRealSeconds * 1000);
-            const targetRealLifeDate = new Date(targetRealLifeTimeMs);
-
-            document.getElementById('localTimeResult').textContent = `Hora local prevista: ${targetRealLifeDate.toLocaleString('pt-BR', { dateStyle: 'full', timeStyle: 'medium' })}`;
-        }
-
-        function resetTimeCalculator() {
-            document.getElementById('roundStartDate').value = formatDateForInput(DEFAULT_ROUND_START_DATE);
-            calculateCurrentRoundEndDate(); // Calculate end date on reset
-
-            // Get current game time after reset and set it as target default
-            calculateCurrentGameTime();
-            document.getElementById('targetDay').value = document.getElementById('currentDay').value;
-            document.getElementById('targetHour').value = document.getElementById('currentHour').value;
-            document.getElementById('targetMinute').value = document.getElementById('currentMinute').value;
-
-            clearMessages(['result', 'localTimeResult', 'errorMessage']);
-        }
-
-        // --- Points Calculator Functions ---
-        // Percentagens otimizadas para cada classe com base nas suas vantagens e desvantagens no jogo.
-        // A soma das percentagens para cada classe deve ser 1.0 (100%).
-
-        const TRAFICANTE_PERCENTAGES = {
-            Inteligência: 0.38,
-            Tolerância: 0.28,
-            Carisma: 0.28,
-            Força: 0.06
+        // --- Módulo de Configurações Globais ---
+        App.Config = {
+            REAL_HOURS_PER_GAME_DAY: 6, // 6 horas reais = 1 dia de jogo
+            GAME_HOURS_PER_REAL_HOUR: 24 / 6, // 4 horas de jogo por hora real
+            GAME_MINUTES_PER_REAL_MINUTE: (24 / 6) * (60 / 60), // 4 minutos de jogo por minuto real
+            DEFAULT_ROUND_START_DATE: new Date(2025, 6, 2, 12, 0), // 2 de Julho de 2025, 12:00 (Mês é 0-indexado)
+            ROUND_DURATION_GAME_DAYS: 52 // Duração padrão da rodada no jogo em dias
         };
 
-        const CAFETÃO_PERCENTAGES = {
-            Carisma: 0.40,
-            Inteligência: 0.25,
-            Tolerância: 0.25,
-            Força: 0.10
-        };
+        // --- Módulo de Funções Utilitárias ---
+        App.Utils = {
+            /**
+             * Formata um objeto Date para o formato de input datetime-local (YYYY-MM-DDTHH:MM).
+             * @param {Date} date - O objeto Date a ser formatado.
+             * @returns {string} A string da data formatada.
+             */
+            formatDateForInput: function(date) {
+                const year = date.getFullYear();
+                const month = String(date.getMonth() + 1).padStart(2, '0');
+                const day = String(date.getDate()).padStart(2, '0');
+                const hours = String(date.getHours()).padStart(2, '0');
+                const minutes = String(date.getMinutes()).padStart(2, '0');
+                return `${year}-${month}-${day}T${hours}:${minutes}`;
+            },
 
-        const EMPRESARIO_PERCENTAGES = { // Businessman
-            Inteligência: 0.45,
-            Carisma: 0.35,
-            Tolerância: 0.15,
-            Força: 0.05
-        };
+            /**
+             * Limpa o conteúdo de elementos HTML especificados por seus IDs.
+             * @param {string[]} elementIds - Um array de IDs de elementos a serem limpos.
+             */
+            clearMessages: function(elementIds) {
+                elementIds.forEach(id => {
+                    const element = document.getElementById(id);
+                    if (element) element.textContent = '';
+                });
+            },
 
-        const LADRAO_PERCENTAGES = { // Robber
-            Inteligência: 0.40,
-            Tolerância: 0.35,
-            Força: 0.20,
-            Carisma: 0.05
-        };
+            /**
+             * Obtém o valor de um elemento input numérico e o converte para inteiro.
+             * @param {string} id - O ID do elemento input.
+             * @returns {number} O valor inteiro do input.
+             */
+            getInputValueAsInt: function(id) {
+                return parseInt(document.getElementById(id).value);
+            },
 
-        const CORRETOR_PERCENTAGES = { // Broker
-            Inteligência: 0.45,
-            Carisma: 0.35,
-            Tolerância: 0.15,
-            Força: 0.05
-        };
-
-        const ASSASSINO_PERCENTAGES = { // Hitman
-            Força: 0.50,
-            Tolerância: 0.30,
-            Inteligência: 0.15,
-            Carisma: 0.05
-        };
-
-
-        function calculatePoints() {
-            clearMessages(['pointsResult', 'pointsErrorMessage']);
-
-            const totalPoints = parseInt(document.getElementById('totalPoints').value);
-            const playerClass = document.getElementById('playerClass').value;
-            const pointsResultDiv = document.getElementById('pointsResult');
-            const pointsErrorDiv = document.getElementById('pointsErrorMessage');
-
-            if (isNaN(totalPoints) || totalPoints < 0) {
-                pointsErrorDiv.textContent = 'Por favor, insira um total de pontos válido (número positivo).';
-                return;
+            /**
+             * Define o valor de um elemento input.
+             * @param {string} id - O ID do elemento input.
+             * @param {string|number} value - O valor a ser definido.
+             */
+            setInputValue: function(id, value) {
+                document.getElementById(id).value = value;
             }
+        };
 
-            let percentages;
-            switch (playerClass) {
-                case 'traficante':
-                    percentages = TRAFICANTE_PERCENTAGES;
-                    break;
-                case 'cafetao':
-                    percentages = CAFETÃO_PERCENTAGES;
-                    break;
-                case 'empresario':
-                    percentages = EMPRESARIO_PERCENTAGES;
-                    break;
-                case 'ladrao':
-                    percentages = LADRAO_PERCENTAGES;
-                    break;
-                case 'corretor':
-                    percentages = CORRETOR_PERCENTAGES;
-                    break;
-                case 'assassino':
-                    percentages = ASSASSINO_PERCENTAGES;
-                    break;
-                default:
+        // --- Módulo de Lógica da Interface do Usuário (UI) ---
+        App.UI = {
+            /**
+             * Inicializa os event listeners para os botões de navegação e cálculo.
+             */
+            init: function() {
+                // Event listeners para os botões de aba
+                document.querySelectorAll('.tab-button').forEach(button => {
+                    button.addEventListener('click', (event) => {
+                        App.UI.showTab(event.target.dataset.tabId);
+                    });
+                });
+
+                // Event listeners para a Calculadora de Tempo
+                document.getElementById('calculateTimeButton').addEventListener('click', App.TimeCalculator.calculateTime);
+                document.getElementById('resetTimeCalculatorButton').addEventListener('click', App.TimeCalculator.resetTimeCalculator);
+                document.getElementById('roundStartDate').addEventListener('change', () => {
+                    App.TimeCalculator.calculateCurrentGameTime();
+                    App.TimeCalculator.calculateCurrentRoundEndDate();
+                });
+
+                // Event listeners para a Calculadora de Pontos
+                document.getElementById('calculatePointsButton').addEventListener('click', App.PointsCalculator.calculatePoints);
+                document.getElementById('resetPointsCalculatorButton').addEventListener('click', App.PointsCalculator.resetPointsCalculator);
+            },
+
+            /**
+             * Alterna a visibilidade das abas e ativa o botão correspondente.
+             * @param {string} tabId - O ID do conteúdo da aba a ser exibido.
+             */
+            showTab: function(tabId) {
+                // Esconde todos os conteúdos das abas
+                document.querySelectorAll('.tab-content').forEach(content => {
+                    content.classList.remove('active');
+                });
+
+                // Desativa todos os botões de aba
+                document.querySelectorAll('.tab-button').forEach(button => {
+                    button.classList.remove('active');
+                });
+
+                // Ativa a aba e o botão selecionados
+                document.getElementById(tabId).classList.add('active');
+                document.querySelector(`.tab-button[data-tab-id="${tabId}"]`).classList.add('active');
+
+                // Recalcula o tempo atual do jogo ao mudar para a aba da calculadora de tempo
+                if (tabId === 'timeCalculatorTabContent') {
+                    App.TimeCalculator.calculateCurrentGameTime();
+                    App.TimeCalculator.calculateCurrentRoundEndDate();
+                }
+                // Limpa as mensagens ao trocar de aba
+                App.Utils.clearMessages(['errorMessage', 'result', 'localTimeResult', 'pointsErrorMessage', 'pointsResult']);
+            }
+        };
+
+        // --- Módulo da Calculadora de Tempo ---
+        App.TimeCalculator = {
+            /**
+             * Calcula e exibe o tempo atual no jogo The Crims.
+             * @returns {boolean} True se o cálculo foi bem-sucedido, false caso contrário.
+             */
+            calculateCurrentGameTime: function() {
+                const roundStartDateInput = document.getElementById('roundStartDate').value;
+
+                if (!roundStartDateInput) {
+                    App.Utils.setInputValue('currentDay', '');
+                    App.Utils.setInputValue('currentHour', '');
+                    App.Utils.setInputValue('currentMinute', '');
+                    return false;
+                }
+
+                const roundStartDate = new Date(roundStartDateInput);
+                const now = new Date();
+
+                const diffMs = now.getTime() - roundStartDate.getTime();
+
+                // Se a data de início da rodada for no futuro
+                if (diffMs < 0) {
+                    App.Utils.setInputValue('currentDay', 1);
+                    App.Utils.setInputValue('currentHour', 0);
+                    App.Utils.setInputValue('currentMinute', 0);
+                    return false;
+                }
+
+                const diffRealMinutes = diffMs / (1000 * 60);
+                const diffGameMinutes = diffRealMinutes * App.Config.GAME_MINUTES_PER_REAL_MINUTE;
+
+                const gameDays = Math.floor(diffGameMinutes / (24 * 60));
+                const remainingMinutesGame = diffGameMinutes % (24 * 60);
+                const gameHours = Math.floor(remainingMinutesGame / 60);
+                const gameMinutes = Math.floor(remainingMinutesGame % 60);
+
+                const currentDayGame = gameDays + 1; // Jogo começa no Dia 1
+                const currentHourGame = gameHours;
+                const currentMinuteGame = gameMinutes;
+
+                App.Utils.setInputValue('currentDay', currentDayGame);
+                App.Utils.setInputValue('currentHour', currentHourGame);
+                App.Utils.setInputValue('currentMinute', currentMinuteGame);
+
+                return true;
+            },
+
+            /**
+             * Calcula e exibe a data e hora de fim da rodada atual na vida real.
+             */
+            calculateCurrentRoundEndDate: function() {
+                const roundStartDateInput = document.getElementById('roundStartDate').value;
+                const currentRoundEndDateInput = document.getElementById('currentRoundEndDate');
+
+                if (!roundStartDateInput) {
+                    currentRoundEndDateInput.value = '';
+                    return;
+                }
+
+                const roundStartDate = new Date(roundStartDateInput);
+                // Calcula a data de fim: Data de Início + (52 dias de jogo * 6 horas reais/dia de jogo)
+                const endDateMs = roundStartDate.getTime() + (App.Config.ROUND_DURATION_GAME_DAYS * App.Config.REAL_HOURS_PER_GAME_DAY * 60 * 60 * 1000);
+                const currentRoundEndDate = new Date(endDateMs);
+
+                currentRoundEndDateInput.value = App.Utils.formatDateForInput(currentRoundEndDate);
+            },
+
+            /**
+             * Calcula o tempo real necessário para atingir um tempo desejado no jogo.
+             */
+            calculateTime: function() {
+                App.Utils.clearMessages(['result', 'localTimeResult', 'errorMessage']);
+
+                const isCurrentTimeCalculated = App.TimeCalculator.calculateCurrentGameTime();
+                if (!isCurrentTimeCalculated) {
+                    document.getElementById('errorMessage').textContent = 'Por favor, insira uma Data/Hora de Início da Rodada válida e no passado.';
+                    return;
+                }
+
+                const currentDay = App.Utils.getInputValueAsInt('currentDay');
+                const currentHour = App.Utils.getInputValueAsInt('currentHour');
+                const currentMinute = App.Utils.getInputValueAsInt('currentMinute');
+
+                const targetDay = App.Utils.getInputValueAsInt('targetDay');
+                const targetHour = App.Utils.getInputValueAsInt('targetHour');
+                const targetMinute = App.Utils.getInputValueAsInt('targetMinute');
+
+                // Validação de inputs
+                if (isNaN(targetDay) || isNaN(targetHour) || isNaN(targetMinute)) {
+                    document.getElementById('errorMessage').textContent = 'Por favor, preencha os campos de "Tempo Desejado" com números válidos.';
+                    return;
+                }
+                if (targetDay < 1) {
+                    document.getElementById('errorMessage').textContent = 'O Dia desejado deve ser no mínimo 1.';
+                    return;
+                }
+                if (targetHour < 0 || targetHour > 23) {
+                    document.getElementById('errorMessage').textContent = 'A Hora desejada deve estar entre 0 e 23.';
+                    return;
+                }
+                if (targetMinute < 0 || targetMinute > 59) {
+                    document.getElementById('errorMessage').textContent = 'O Minuto desejado deve estar entre 0 e 59.';
+                    return;
+                }
+
+                // Converte todos os tempos para minutos totais no jogo
+                const currentTotalMinutesGame = (currentDay * 24 * 60) + (currentHour * 60) + currentMinute;
+                const targetTotalMinutesGame = (targetDay * 24 * 60) + (targetHour * 60) + targetMinute;
+
+                // Verifica se o tempo desejado é no futuro
+                if (targetTotalMinutesGame < currentTotalMinutesGame) {
+                    document.getElementById('errorMessage').textContent = 'O tempo desejado deve ser no futuro em relação ao tempo atual do jogo.';
+                    return;
+                }
+
+                const differenceMinutesGame = targetTotalMinutesGame - currentTotalMinutesGame;
+                const differenceRealSeconds = differenceMinutesGame * (60 / App.Config.GAME_MINUTES_PER_REAL_MINUTE);
+
+                // Converte segundos reais para horas, minutos e segundos
+                const realHours = Math.floor(differenceRealSeconds / 3600);
+                const remainingSecondsAfterHours = differenceRealSeconds % 3600;
+                const realMinutes = Math.floor(remainingSecondsAfterHours / 60);
+                const realSeconds = Math.floor(remainingSecondsAfterHours % 60);
+
+                let resultText = 'Tempo real necessário: ';
+                if (realHours > 0) {
+                    resultText += `${realHours} hora${realHours !== 1 ? 's' : ''}`;
+                }
+                if (realMinutes > 0) {
+                    if (realHours > 0) resultText += ', ';
+                    resultText += `${realMinutes} minuto${realMinutes !== 1 ? 's' : ''}`;
+                }
+                if (realSeconds > 0) {
+                    if (realHours > 0 || realMinutes > 0) resultText += ' e ';
+                    resultText += `${realSeconds} segundo${realSeconds !== 1 ? 's' : ''}`;
+                }
+                if (realHours === 0 && realMinutes === 0 && realSeconds === 0) {
+                    resultText = 'O tempo atual e o tempo desejado são os mesmos.';
+                }
+
+                document.getElementById('result').textContent = resultText;
+
+                // Calcula e exibe a hora local prevista
+                const now = new Date();
+                const targetRealLifeTimeMs = now.getTime() + (differenceRealSeconds * 1000);
+                const targetRealLifeDate = new Date(targetRealLifeTimeMs);
+
+                document.getElementById('localTimeResult').textContent = `Hora local prevista: ${targetRealLifeDate.toLocaleString('pt-BR', { dateStyle: 'full', timeStyle: 'medium' })}`;
+            },
+
+            /**
+             * Redefine os campos da calculadora de tempo para os valores padrão.
+             */
+            resetTimeCalculator: function() {
+                App.Utils.setInputValue('roundStartDate', App.Utils.formatDateForInput(App.Config.DEFAULT_ROUND_START_DATE));
+                App.TimeCalculator.calculateCurrentRoundEndDate(); // Calcula a data de fim da rodada ao redefinir
+
+                // Define o tempo desejado para o tempo atual do jogo
+                App.TimeCalculator.calculateCurrentGameTime(); // Garante que o tempo atual esteja atualizado
+                App.Utils.setInputValue('targetDay', App.Utils.getInputValueAsInt('currentDay'));
+                App.Utils.setInputValue('targetHour', App.Utils.getInputValueAsInt('currentHour'));
+                App.Utils.setInputValue('targetMinute', App.Utils.getInputValueAsInt('currentMinute'));
+
+                App.Utils.clearMessages(['result', 'localTimeResult', 'errorMessage']);
+            }
+        };
+
+        // --- Módulo da Calculadora de Pontos ---
+        App.PointsCalculator = {
+            // Percentagens otimizadas para cada classe com base nas suas vantagens e desvantagens no jogo.
+            // A soma das percentagens para cada classe deve ser 1.0 (100%).
+            CLASS_DISTRIBUTIONS: {
+                assassino: { // Hitman - Foco em combate e sobrevivência em confronto.
+                    Força: 0.50,
+                    Tolerância: 0.30,
+                    Inteligência: 0.15,
+                    Carisma: 0.05
+                },
+                cafetao: { // Pimp - Foco em gerenciamento de pessoal e proteção.
+                    Carisma: 0.40,
+                    Inteligência: 0.25,
+                    Tolerância: 0.25,
+                    Força: 0.10
+                },
+                corretor: { // Broker - Foco em transações financeiras e influência no mercado.
+                    Inteligência: 0.45,
+                    Carisma: 0.35,
+                    Tolerância: 0.15,
+                    Força: 0.05
+                },
+                empresario: { // Businessman - Foco em negócios e investimentos.
+                    Inteligência: 0.45,
+                    Carisma: 0.35,
+                    Tolerância: 0.15,
+                    Força: 0.05
+                },
+                ladrao: { // Robber - Foco em roubos e agilidade.
+                    Inteligência: 0.40,
+                    Tolerância: 0.35,
+                    Força: 0.20,
+                    Carisma: 0.05
+                },
+                traficante: { // Dealer - Foco em comércio de drogas e rede de contatos.
+                    Inteligência: 0.38,
+                    Tolerância: 0.28,
+                    Carisma: 0.28,
+                    Força: 0.06
+                }
+            },
+
+            /**
+             * Calcula a distribuição de pontos de atributo com base na classe e total de pontos.
+             */
+            calculatePoints: function() {
+                App.Utils.clearMessages(['pointsResult', 'pointsErrorMessage']);
+
+                const totalPoints = App.Utils.getInputValueAsInt('totalPoints');
+                const playerClass = document.getElementById('playerClass').value;
+                const pointsResultDiv = document.getElementById('pointsResult');
+                const pointsErrorDiv = document.getElementById('pointsErrorMessage');
+
+                if (isNaN(totalPoints) || totalPoints < 0) {
+                    pointsErrorDiv.textContent = 'Por favor, insira um total de pontos válido (número positivo).';
+                    return;
+                }
+
+                const percentages = App.PointsCalculator.CLASS_DISTRIBUTIONS[playerClass];
+
+                if (!percentages) {
                     pointsErrorDiv.textContent = 'Classe de jogador inválida selecionada.';
                     return;
-            }
+                }
 
-            let resultHtml = `
-                <p class="text-xl font-bold mb-4">Distribuição para ${document.getElementById('playerClass').options[document.getElementById('playerClass').selectedIndex].text} (${totalPoints} pontos):</p>
-            `;
+                // Obtém o nome da classe para exibição
+                const classNameDisplay = document.getElementById('playerClass').options[document.getElementById('playerClass').selectedIndex].text;
 
-            for (const attribute in percentages) {
-                const points = Math.round(totalPoints * percentages[attribute]);
-                resultHtml += `
-                    <div class="attribute-result">
-                        <span class="attribute-label">${attribute}:</span>
-                        <span class="attribute-value">${points} pontos (${(percentages[attribute] * 100).toFixed(0)}%)</span>
-                    </div>
+                let resultHtml = `
+                    <p class="text-xl font-bold mb-4">Distribuição para ${classNameDisplay} (${totalPoints} pontos):</p>
                 `;
+
+                for (const attribute in percentages) {
+                    const points = Math.round(totalPoints * percentages[attribute]);
+                    resultHtml += `
+                        <div class="attribute-result">
+                            <span class="attribute-label">${attribute}:</span>
+                            <span class="attribute-value">${points} pontos (${(percentages[attribute] * 100).toFixed(0)}%)</span>
+                        </div>
+                    `;
+                }
+                pointsResultDiv.innerHTML = resultHtml;
+            },
+
+            /**
+             * Redefine os campos da calculadora de pontos para os valores padrão.
+             */
+            resetPointsCalculator: function() {
+                App.Utils.setInputValue('totalPoints', 10000);
+                App.Utils.setInputValue('playerClass', 'assassino'); // Padrão para Assassino (primeiro na lista alfabética)
+                App.Utils.clearMessages(['pointsResult', 'pointsErrorMessage']);
             }
-            pointsResultDiv.innerHTML = resultHtml;
-        }
-
-        function resetPointsCalculator() {
-            document.getElementById('totalPoints').value = 10000;
-            document.getElementById('playerClass').value = 'assassino'; // Default to Assassino (first in alpha list)
-            clearMessages(['pointsResult', 'pointsErrorMessage']);
-        }
-
-        // --- Initialization ---
-        window.onload = function() {
-            resetTimeCalculator(); // Initialize Time Calculator defaults and set target time to current
-            resetPointsCalculator(); // Initialize Points Calculator defaults
-            showTab('timeCalculatorTabContent'); // Show time calculator tab by default
-
-            // Update current game time every second for a more "real-time" feel
-            setInterval(calculateCurrentGameTime, 1000);
-            // Update current round end date less frequently as it's static per round
-            setInterval(calculateCurrentRoundEndDate, 60 * 1000); // Every minute
         };
+
+        // --- Inicialização da Aplicação ---
+        // Esta função é chamada quando todo o DOM é carregado.
+        App.init = function() {
+            App.UI.init(); // Inicializa os event listeners da UI
+            App.TimeCalculator.resetTimeCalculator(); // Configura os padrões da Calculadora de Tempo
+            App.PointsCalculator.resetPointsCalculator(); // Configura os padrões da Calculadora de Pontos
+            App.UI.showTab('timeCalculatorTabContent'); // Mostra a aba da calculadora de tempo por padrão
+
+            // Configura intervalos para atualização em tempo real
+            setInterval(App.TimeCalculator.calculateCurrentGameTime, 1000); // Atualiza o tempo do jogo a cada segundo
+            setInterval(App.TimeCalculator.calculateCurrentRoundEndDate, 60 * 1000); // Atualiza a data de fim da rodada a cada minuto
+        };
+
+        // Garante que a inicialização ocorra após o carregamento completo do DOM
+        document.addEventListener('DOMContentLoaded', App.init);
     </script>
 </body>
 </html>
