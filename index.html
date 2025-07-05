@@ -10,8 +10,8 @@
         /* Estilos base para o corpo da página */
         body {
             font-family: 'Inter', sans-serif; /* Usando a fonte Inter */
-            background-color: #1e293b; /* Fundo escuro (slate-900) */
-            color: #e2e8f0; /* Texto claro */
+            background-color: #1c1e26; /* Fundo muito escuro, quase preto azulado */
+            color: #e2e8f0; /* Texto claro (slate-200) */
             display: flex;
             justify-content: center;
             align-items: center;
@@ -23,10 +23,10 @@
 
         /* Estilização do container principal */
         .container {
-            background-color: #334155; /* Azul-acinzentado mais escuro (slate-700) */
+            background-color: #2a2d3a; /* Azul-acinzentado escuro (similar a slate-900) */
             padding: 2.5rem; /* Preenchimento generoso */
             border-radius: 1rem; /* Cantos mais arredondados */
-            box-shadow: 0 12px 20px rgba(0, 0, 0, 0.3); /* Sombra mais pronunciada */
+            box-shadow: 0 12px 20px rgba(0, 0, 0, 0.4); /* Sombra mais pronunciada */
             max-width: 650px; /* Largura máxima ligeiramente maior para desktop */
             width: 100%;
             text-align: center;
@@ -40,8 +40,8 @@
             font-size: 2.5rem; /* Título ainda maior para impacto */
             font-weight: 800; /* Extra negrito */
             margin-bottom: 1.25rem;
-            color: #38bdf8; /* Azul mais vibrante (sky-400) */
-            text-shadow: 1px 1px 2px rgba(0,0,0,0.2); /* Sombra de texto sutil */
+            color: #f59e0b; /* Âmbar vibrante (amber-500) */
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.3); /* Sombra de texto sutil */
         }
 
         /* Estilização da navegação por abas */
@@ -54,8 +54,8 @@
 
         /* Estilização dos botões de aba */
         .tab-button {
-            background-color: #475569; /* Fundo do botão (slate-600) */
-            color: #94a3b8; /* Cor de texto mais suave (slate-400) */
+            background-color: #374151; /* Fundo do botão (slate-700) */
+            color: #9ca3af; /* Cor de texto mais suave (slate-400) */
             padding: 0.875rem 1.5rem; /* Preenchimento aumentado */
             border: none;
             border-radius: 0.625rem 0.625rem 0 0; /* Cantos superiores mais arredondados */
@@ -66,17 +66,17 @@
             margin: 0 0.25rem; /* Margem maior entre os botões */
             flex-grow: 1;
             text-align: center;
-            box-shadow: inset 0 2px 4px rgba(0,0,0,0.1); /* Sombra interna sutil */
+            box-shadow: inset 0 2px 4px rgba(0,0,0,0.15); /* Sombra interna sutil */
         }
         .tab-button:hover {
-            background-color: #64748b; /* Fundo do botão no hover (slate-500) */
+            background-color: #4b5563; /* Fundo do botão no hover (slate-600) */
             color: white;
         }
         .tab-button.active {
-            background-color: #38bdf8; /* Azul vibrante para aba ativa (sky-400) */
+            background-color: #f59e0b; /* Âmbar vibrante para aba ativa (amber-500) */
             color: white;
-            border-bottom: 2px solid #38bdf8;
-            box-shadow: inset 0 2px 4px rgba(0,0,0,0.2), 0 2px 5px rgba(0,0,0,0.2); /* Sombra mais proeminente */
+            border-bottom: 2px solid #f59e0b;
+            box-shadow: inset 0 2px 4px rgba(0,0,0,0.2), 0 2px 5px rgba(0,0,0,0.3); /* Sombra mais proeminente */
         }
 
         /* Estilização do conteúdo das abas */
@@ -94,7 +94,7 @@
         .section-title {
             font-size: 1.35rem; /* Título de seção ligeiramente maior */
             font-weight: 700; /* Mais negrito */
-            color: #cbd5e1; /* Cinza claro (slate-300) */
+            color: #e5e7eb; /* Cinza claro (gray-200) */
             margin-bottom: 1rem;
             border-bottom: 1px solid #475569; /* Borda inferior (slate-600) */
             padding-bottom: 0.625rem;
@@ -124,17 +124,21 @@
             padding: 0.75rem; /* Preenchimento maior */
             border-radius: 0.625rem; /* Cantos mais arredondados */
             border: 1px solid #475569; /* Borda (slate-600) */
-            background-color: #475569; /* Fundo (slate-600) */
-            color: #e2e8f0;
+            background-color: #374151; /* Fundo (slate-700) */
+            color: #e2e8f0; /* Texto claro por padrão */
             font-size: 1.05rem; /* Fonte ligeiramente maior */
             text-align: center;
             -moz-appearance: textfield;
             transition: border-color 0.2s ease, box-shadow 0.2s ease;
         }
+        /* Cor do texto para inputs numéricos na calculadora de pontos */
+        #totalPoints {
+            color: #000000; /* Texto preto para melhor legibilidade */
+        }
         .time-inputs input[type="number"]:focus,
         .points-inputs input[type="number"]:focus {
-            border-color: #38bdf8; /* Borda azul no foco (sky-400) */
-            box-shadow: 0 0 0 2px rgba(56, 189, 248, 0.5); /* Sombra de foco azul */
+            border-color: #f59e0b; /* Borda âmbar no foco (amber-500) */
+            box-shadow: 0 0 0 2px rgba(245, 158, 11, 0.5); /* Sombra de foco âmbar */
             outline: none;
         }
         /* Esconde setas em inputs numéricos para Chrome/Safari */
@@ -153,21 +157,21 @@
             padding: 0.75rem; /* Preenchimento maior */
             border-radius: 0.625rem; /* Cantos mais arredondados */
             border: 1px solid #475569; /* Borda (slate-600) */
-            background-color: #475569; /* Fundo (slate-600) */
-            color: #e2e8f0;
+            background-color: #374151; /* Fundo (slate-700) */
+            color: #e2e8f0; /* Texto claro por padrão */
             font-size: 1.05rem;
             transition: border-color 0.2s ease, box-shadow 0.2s ease;
         }
         input[type="datetime-local"]:focus,
         select:focus {
-            border-color: #38bdf8;
-            box-shadow: 0 0 0 2px rgba(56, 189, 248, 0.5);
+            border-color: #f59e0b;
+            box-shadow: 0 0 0 2px rgba(245, 158, 11, 0.5);
             outline: none;
         }
 
         /* Estilização de inputs somente leitura */
         input[readonly] {
-            background-color: #64748b; /* Fundo mais escuro para readonly (slate-500) */
+            background-color: #4b5563; /* Fundo mais escuro para readonly (slate-600) */
             cursor: default;
             opacity: 0.85; /* Levemente mais opaco */
             box-shadow: inset 0 1px 3px rgba(0,0,0,0.1); /* Sombra interna para readonly */
@@ -184,7 +188,7 @@
         /* Estilização geral de botões */
         button {
             flex: 1 1 calc(50% - 0.625rem); /* Dois botões por linha */
-            background-color: #38bdf8; /* Azul (sky-400) */
+            background-color: #f59e0b; /* Âmbar (amber-500) */
             color: white;
             padding: 0.875rem 1.75rem; /* Preenchimento generoso */
             border-radius: 0.625rem; /* Cantos mais arredondados */
@@ -193,16 +197,16 @@
             border: none;
             cursor: pointer;
             transition: background-color 0.3s ease, transform 0.1s ease, box-shadow 0.2s ease;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1); /* Sombra sutil no botão */
+            box-shadow: 0 4px 6px rgba(0,0,0,0.2); /* Sombra sutil no botão */
         }
         button:hover {
-            background-color: #0ea5e9; /* Azul mais escuro no hover (sky-500) */
+            background-color: #d97706; /* Âmbar mais escuro no hover (amber-600) */
             transform: translateY(-3px); /* Efeito de elevação maior */
-            box-shadow: 0 6px 10px rgba(0,0,0,0.2);
+            box-shadow: 0 6px 10px rgba(0,0,0,0.3);
         }
         button:active {
             transform: translateY(0);
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1); /* Sombra menor ao clicar */
+            box-shadow: 0 2px 4px rgba(0,0,0,0.15); /* Sombra menor ao clicar */
         }
 
         /* Estilização específica do botão de redefinir */
@@ -250,7 +254,7 @@
         }
         .attribute-label {
             font-weight: 600;
-            color: #cbd5e1; /* Cinza claro (slate-300) */
+            color: #e2e8f0; /* Texto claro (slate-200) */
         }
         .attribute-value {
             color: #22c55e; /* Verde (green-500) */
