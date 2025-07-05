@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Calculadora | The Crims</title>
+    <title>Calculadora The Crims | PRO</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -283,7 +283,6 @@
                 TimeCalculator.calculateCurrentRoundEndDate();
                 TimeCalculator.calculateCurrentGameTime();
 
-                // Carrega os valores salvos do Tempo Desejado ou usa os atuais
                 DOMElements.targetDay.value = localStorage.getItem('targetDay') || DOMElements.currentDay.value;
                 DOMElements.targetHour.value = localStorage.getItem('targetHour') || DOMElements.currentHour.value;
                 DOMElements.targetMinute.value = localStorage.getItem('targetMinute') || DOMElements.currentMinute.value;
@@ -307,14 +306,15 @@
                 DOMElements.copyPointsButton.addEventListener('click', PointsCalculator.copyToClipboard);
                 DOMElements.resetPointsCalculatorButton.addEventListener('click', PointsCalculator.loadPreset);
             },
+            // =====> LAYOUT CORRIGIDO AQUI <=====
             buildDistributionUI: () => {
                 let html = '';
                 Object.keys(CONFIG.CLASS_DISTRIBUTIONS.assassino).forEach(attr => {
                     html += `
-                            <div class="grid grid-cols-12 gap-2 items-center">
-                                <label class="col-span-3 font-semibold text-slate-200">${attr}</label>
-                                <span id="points-for-${attr}" class="col-span-4 text-green-400 font-bold">0</span>
-                                <div class="col-span-5 flex items-center">
+                            <div class="grid grid-cols-12 gap-x-2 sm:gap-x-3 items-center">
+                                <label class="col-span-5 sm:col-span-4 font-semibold text-slate-200 text-sm sm:text-base truncate">${attr}</label>
+                                <span id="points-for-${attr}" class="col-span-3 sm:col-span-4 text-green-400 font-bold text-sm sm:text-base text-right">0</span>
+                                <div class="col-span-4 sm:col-span-4 flex items-center">
                                     <input type="number" id="percent-for-${attr}" data-attr="${attr}" class="w-full bg-gray-700 border border-gray-600 rounded-lg p-1.5 text-center focus:ring-1 focus:ring-amber-500 outline-none percent-input" min="0" max="100">
                                     <span class="ml-2">%</span>
                                 </div>
@@ -379,7 +379,7 @@
 
         // --- FUNÇÃO DE INICIALIZAÇÃO PRINCIPAL ---
         function main() {
-            // Configura o restante da aplicação
+            // Configura a aplicação
             DOMElements.tabs.forEach(tab => tab.addEventListener('click', () => showTab(tab.dataset.tabId)));
 
             // Carrega valores do localStorage
