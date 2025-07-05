@@ -84,10 +84,19 @@
                 </section>
                 <section>
                     <h3 class="font-bold text-lg text-slate-800 dark:text-slate-200 mb-2">Tempo Desejado no Jogo</h3>
-                    <div class="grid grid-cols-3 gap-3">
-                        <input type="number" id="targetDay" placeholder="Dia" min="1" class="w-full bg-slate-100 dark:bg-gray-700 border border-slate-300 dark:border-gray-600 rounded-lg p-2.5 text-center focus:ring-2 focus:ring-amber-500 focus:border-amber-500 outline-none">
-                        <input type="number" id="targetHour" placeholder="Hora" min="0" max="23" class="w-full bg-slate-100 dark:bg-gray-700 border border-slate-300 dark:border-gray-600 rounded-lg p-2.5 text-center focus:ring-2 focus:ring-amber-500 focus:border-amber-500 outline-none">
-                        <input type="number" id="targetMinute" placeholder="Minuto" min="0" max="59" class="w-full bg-slate-100 dark:bg-gray-700 border border-slate-300 dark:border-gray-600 rounded-lg p-2.5 text-center focus:ring-2 focus:ring-amber-500 focus:border-amber-500 outline-none">
+                    <div class="grid grid-cols-3 gap-3 text-center">
+                        <div>
+                            <span class="text-xs text-slate-500 dark:text-slate-400">Dia</span>
+                            <input type="number" id="targetDay" placeholder="Dia" min="1" class="w-full bg-slate-100 dark:bg-gray-700 border border-slate-300 dark:border-gray-600 rounded-lg p-2.5 text-center focus:ring-2 focus:ring-amber-500 focus:border-amber-500 outline-none mt-1">
+                        </div>
+                        <div>
+                            <span class="text-xs text-slate-500 dark:text-slate-400">Hora</span>
+                            <input type="number" id="targetHour" placeholder="Hora" min="0" max="23" class="w-full bg-slate-100 dark:bg-gray-700 border border-slate-300 dark:border-gray-600 rounded-lg p-2.5 text-center focus:ring-2 focus:ring-amber-500 focus:border-amber-500 outline-none mt-1">
+                        </div>
+                        <div>
+                            <span class="text-xs text-slate-500 dark:text-slate-400">Minuto</span>
+                            <input type="number" id="targetMinute" placeholder="Minuto" min="0" max="59" class="w-full bg-slate-100 dark:bg-gray-700 border border-slate-300 dark:border-gray-600 rounded-lg p-2.5 text-center focus:ring-2 focus:ring-amber-500 focus:border-amber-500 outline-none mt-1">
+                        </div>
                     </div>
                 </section>
                 <div class="flex flex-col sm:flex-row gap-3 pt-4">
@@ -257,7 +266,6 @@
                 const endDateMs = roundStart.getTime() + (CONFIG.ROUND_DURATION_GAME_DAYS * CONFIG.REAL_HOURS_PER_GAME_DAY * 3600000);
                 Utils.setInputValue(DOMElements.currentRoundEndDate, Utils.formatDateForInput(new Date(endDateMs)));
             },
-            // =====> FUNÇÃO RESTAURADA <=====
             calculateRealTime: () => {
                 Utils.clearMessages(DOMElements.result, DOMElements.localTimeResult, DOMElements.errorMessage);
                 if (!TimeCalculator.calculateCurrentGameTime()) {
