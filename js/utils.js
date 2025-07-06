@@ -32,11 +32,9 @@ export const Utils = {
     setInputValue: (element, value) => { element.value = value; }
 };
 
-// Gera um ID único para o visitante e o salva no navegador.
 function getOrCreateVisitorId() {
     let visitorId = localStorage.getItem('visitorId');
     if (!visitorId) {
-        // Cria um ID forte e aleatório se não existir
         visitorId = 'visitor-' + Date.now() + '-' + Math.random().toString(36).substring(2, 15);
         localStorage.setItem('visitorId', visitorId);
     }
@@ -47,13 +45,9 @@ export async function updateVisitorCount() {
     try {
         const visitorId = getOrCreateVisitorId();
 
-        const response = await fetch('/.netlify/functions/visitor-counter', {
-            method: 'POST', // Mudamos para POST
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({ visitorId: visitorId }), // Enviamos o ID no corpo
-        });
+        // **MUDANÇA PRINCIPAL AQUI**
+        // Enviamos o ID diretamente na URL, sem corpo, usando GET.
+        const response = await fetch(`/.netlify/functions/visitor-counter?visitorId=${visitorId}`);
 
         const data = await response.json();
 

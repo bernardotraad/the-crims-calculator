@@ -13,33 +13,24 @@ async function ensureTablesExist() {
     `;
 }
 
-// A mudança principal está aqui: (event) em vez de (req)
 export default async (event) => {
     try {
         await ensureTablesExist();
 
-        let visitorId;
-        // E aqui: usamos event.body
-        if (event.body) {
-            try {
-                const body = JSON.parse(event.body);
-                visitorId = body.visitorId;
-            } catch (e) {
-                console.error("Erro ao parsear o corpo da requisição:", e);
-                visitorId = null;
-            }
-        }
+        // **MUDANÇA PRINCIPAL AQUI**
+        // Lemos o ID direto dos parâmetros da URL.
+        const visitorId = event.queryStringParameters.visitorId;
 
-        // Usamos o header do objeto event para o IP
+        // Fallback para o IP, caso o visitorId não venha por algum motivo.
         const ip = event.headers['x-nf-client-connection-ip'] || 'unknown';
         const visitorHash = visitorId || `user-${ip}`;
 
-        console.log('Identificador Utilizado (Final):', visitorHash);
+        console.log('Identificador (via URL):', visitorHash);
 
         const now = new Date();
         const today = now.toISOString().split('T')[0];
 
-        // --- LÓGICA DO CONTADOR "ONLINE" ---
+        // O resto da lógica permanece exatamente o mesmo.
         await sql`
             INSERT INTO recent_visits (visitor_hash, last_seen)
             VALUES (${visitorHash}, ${now})
@@ -50,7 +41,6 @@ export default async (event) => {
         const onlineResult = await sql`SELECT COUNT(*) FROM recent_visits`;
         const onlineCount = onlineResult[0].count;
 
-        // --- LÓGICA DO CONTADOR "24h" ---
         await sql`
             INSERT INTO daily_uniques_hll (day, visitors)
             VALUES (${today}, hll_empty())
