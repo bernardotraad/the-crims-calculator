@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="dark">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -31,7 +31,7 @@
         }
 
         .feedback-container {
-            transition: max-height 0.4s ease-in-out, opacity 0.4s ease-in-out, margin-top 0.4s ease-in-out;
+            transition: max-height 0.3s ease-in-out, opacity 0.3s ease-in-out, margin-top 0.3s ease-in-out;
             max-height: 0;
             opacity: 0;
             overflow: hidden;
@@ -39,9 +39,9 @@
         }
 
             .feedback-container.active {
-                max-height: 5rem; /* Altura máxima suficiente para o conteúdo */
+                max-height: 5rem;
                 opacity: 1;
-                margin-top: 1rem; /* Margem que aparece junto com a mensagem */
+                margin-top: 1rem;
             }
     </style>
 </head>
@@ -54,7 +54,7 @@
         </header>
 
         <nav class="flex border-b border-gray-700">
-            <button class="tab-button flex-1 py-3 px-4 text-sm sm:text-base font-semibold text-slate-400 border-b-2 border-transparent" data-tab-id="timeCalculatorTabContent" data-i18n-key="timeCalcTab"></button>
+            <button class="tab-button active flex-1 py-3 px-4 text-sm sm:text-base font-semibold text-slate-400 border-b-2 border-transparent" data-tab-id="timeCalculatorTabContent" data-i18n-key="timeCalcTab"></button>
             <button class="tab-button flex-1 py-3 px-4 text-sm sm:text-base font-semibold text-slate-400 border-b-2 border-transparent" data-tab-id="pointsCalculatorTabContent" data-i18n-key="pointsCalcTab"></button>
         </nav>
 
@@ -121,14 +121,10 @@
                     </div>
                     <div class="space-y-2">
                         <label for="playerClass" class="font-semibold text-slate-200" data-i18n-key="loadClassPreset"></label>
-                        <select id="playerClass" class="w-full bg-gray-700 border border-gray-600 rounded-lg p-2.5 text-slate-200 focus:ring-2 focus:ring-amber-500 focus:border-amber-500 outline-none">
-                        </select>
+                        <select id="playerClass" class="w-full bg-gray-700 border border-gray-600 rounded-lg p-2.5 text-slate-200 focus:ring-2 focus:ring-amber-500 focus:border-amber-500 outline-none"></select>
                     </div>
                 </section>
-
-                <section id="pointsDistributionSection" class="bg-gray-900/50 p-4 rounded-lg space-y-3">
-                </section>
-
+                <section id="pointsDistributionSection" class="bg-gray-900/50 p-4 rounded-lg space-y-3"></section>
                 <div class="flex flex-col sm:flex-row gap-3 pt-4">
                     <button id="copyPointsButton" class="w-full bg-sky-600 hover:bg-sky-700 text-white font-bold py-3 px-4 rounded-lg" data-i18n-key="copyBuild"></button>
                     <button id="resetPointsCalculatorButton" class="w-full bg-red-600 hover:bg-red-700 text-white font-bold py-3 px-4 rounded-lg" data-i18n-key="resetPreset"></button>
@@ -139,11 +135,14 @@
 
         <footer class="border-t border-gray-700 pt-4 text-center">
             <p class="text-sm text-slate-500" data-i18n-key="footerText"></p>
+            <div id="visitor-counter" class="text-xs text-slate-500 space-x-4 mt-2">
+                <span data-i18n-key="online">: <span id="online-count">--</span></span>
+                <span data-i18n-key="last24h">: <span id="daily-count">--</span></span>
+            </div>
         </footer>
     </div>
 
     <script type="module">
-        // --- CONFIGURAÇÕES GLOBAIS ---
         const CONFIG = {
             REAL_HOURS_PER_GAME_DAY: 6,
             GAME_MINUTES_PER_REAL_MINUTE: (24 / 6),
@@ -153,101 +152,12 @@
             ATTRIBUTES_IDS: ['forca', 'tolerancia', 'inteligencia', 'carisma']
         };
 
-        // --- TRADUÇÕES (i18n) ---
         const i18n = {
             en: {
-                title: "The Crims Calculator",
-                subtitle: "Tools to optimize your game.",
-                timeCalcTab: "Time Calculator",
-                pointsCalcTab: "Points Calculator",
-                calculate: "Calculate",
-                reset: "Reset",
-                day: "Day",
-                hour: "Hour",
-                minute: "Minute",
-                roundStartLabel: "Round Start (Real Time):",
-                roundEndLabel: "Round End (Real Time):",
-                currentGameTime: "Current Game Time",
-                desiredGameTime: "Desired Game Time",
-                realTimeNeeded: "Real time needed",
-                localTimePrefix: "Predicted local time",
-                errorInvalidStart: "Please enter a valid Round Start Date/Time in the past.",
-                errorFillFields: "Please fill all 'Desired Time' fields.",
-                errorFutureTime: "Desired time must be in the future.",
-                timeIsSame: "Current and desired time are the same.",
-                and: "and",
-                hour_one: "hour",
-                hour_other: "hours",
-                minute_one: "minute",
-                minute_other: "minutes",
-                totalPointsLabel: "Total Points:",
-                loadClassPreset: "Load Class Preset:",
-                copyBuild: "Copy Build",
-                resetPreset: "Reset Preset",
-                copied: "Copied!",
-                buildWith: "Build with",
-                points: "points",
-                totalPercent: "Total %",
-                errorInvalidPoints: "Please enter a valid number of points.",
-                errorPercentSum: "The sum of percentages must be 100%.",
-                assassino: "Hitman",
-                cafetao: "Pimp",
-                corretor: "Broker",
-                empresario: "Businessman",
-                ladrao: "Robber",
-                traficante: "Dealer",
-                forca: "Strength",
-                tolerancia: "Tolerance",
-                inteligencia: "Intelligence",
-                carisma: "Charisma",
-                footerText: `Developed with 🧠 by <a href="https://github.com/bernardotraad" target="_blank" class="font-semibold text-amber-400 hover:underline">Bernardo Traad</a>`
+                title: "The Crims Calculator", subtitle: "Tools to optimize your game.", timeCalcTab: "Time Calculator", pointsCalcTab: "Points Calculator", calculate: "Calculate", reset: "Reset", day: "Day", hour: "Hour", minute: "Minute", roundStartLabel: "Round Start (Real Time):", roundEndLabel: "Round End (Real Time):", currentGameTime: "Current Game Time", desiredGameTime: "Desired Game Time", realTimeNeeded: "Real time needed", localTimePrefix: "Predicted local time", errorInvalidStart: "Please enter a valid Round Start Date/Time in the past.", errorFillFields: "Please fill all 'Desired Time' fields.", errorFutureTime: "Desired time must be in the future.", timeIsSame: "Current and desired time are the same.", and: "and", hour_one: "hour", hour_other: "hours", minute_one: "minute", minute_other: "minutes", totalPointsLabel: "Total Points:", loadClassPreset: "Load Class Preset:", copyBuild: "Copy Build", resetPreset: "Reset Preset", copied: "Copied!", buildWith: "Build with", points: "points", totalPercent: "Total %", errorInvalidPoints: "Please enter a valid number of points.", errorPercentSum: "The sum of percentages must be 100%.", assassino: "Hitman", cafetao: "Pimp", corretor: "Broker", empresario: "Businessman", ladrao: "Robber", traficante: "Dealer", forca: "Strength", tolerancia: "Tolerance", inteligencia: "Intelligence", carisma: "Charisma", footerText: `Developed with 🧠 by <a href="https://github.com/bernardotraad" target="_blank" class="font-semibold text-amber-400 hover:underline">Bernardo Traad</a>`, online: "Online", last24h: "24h"
             },
             pt: {
-                title: "Calculadora The Crims",
-                subtitle: "Ferramentas para otimizar seu jogo.",
-                timeCalcTab: "Calculadora de Tempo",
-                pointsCalcTab: "Calculadora de Pontos",
-                calculate: "Calcular",
-                reset: "Redefinir",
-                day: "Dia",
-                hour: "Hora",
-                minute: "Minuto",
-                roundStartLabel: "Início da Rodada (Real):",
-                roundEndLabel: "Fim da Rodada (Real):",
-                currentGameTime: "Tempo Atual no Jogo",
-                desiredGameTime: "Tempo Desejado no Jogo",
-                realTimeNeeded: "Tempo real necessário",
-                localTimePrefix: "Hora local prevista",
-                errorInvalidStart: "Por favor, insira uma Data/Hora de Início da Rodada válida e no passado.",
-                errorFillFields: "Por favor, preencha todos os campos de 'Tempo Desejado'.",
-                errorFutureTime: "O tempo desejado deve ser no futuro.",
-                timeIsSame: "O tempo atual e o desejado são os mesmos.",
-                and: "e",
-                hour_one: "hora",
-                hour_other: "horas",
-                minute_one: "minuto",
-                minute_other: "minutos",
-                totalPointsLabel: "Total de Pontos:",
-                loadClassPreset: "Carregar Padrão da Classe:",
-                copyBuild: "Copiar Build",
-                resetPreset: "Redefinir Padrão",
-                copied: "Copiado!",
-                buildWith: "Build com",
-                points: "pontos",
-                totalPercent: "Total %",
-                errorInvalidPoints: "Por favor, insira um total de pontos válido.",
-                errorPercentSum: "A soma das porcentagens deve ser 100%.",
-                assassino: "Assassino de Aluguel",
-                cafetao: "Cafetão",
-                corretor: "Corretor",
-                empresario: "Empresário",
-                ladrao: "Ladrão",
-                traficante: "Traficante",
-                forca: "Força",
-                tolerancia: "Tolerância",
-                inteligencia: "Inteligência",
-                carisma: "Carisma",
-                footerText: `Desenvolvido com 🧠 por <a href="https://github.com/bernardotraad" target="_blank" class="font-semibold text-amber-400 hover:underline">Bernardo Traad</a>`
+                title: "Calculadora The Crims", subtitle: "Ferramentas para otimizar seu jogo.", timeCalcTab: "Calculadora de Tempo", pointsCalcTab: "Calculadora de Pontos", calculate: "Calcular", reset: "Redefinir", day: "Dia", hour: "Hora", minute: "Minuto", roundStartLabel: "Início da Rodada (Real):", roundEndLabel: "Fim da Rodada (Real):", currentGameTime: "Tempo Atual no Jogo", desiredGameTime: "Tempo Desejado no Jogo", realTimeNeeded: "Tempo real necessário", localTimePrefix: "Hora local prevista", errorInvalidStart: "Por favor, insira uma Data/Hora de Início da Rodada válida e no passado.", errorFillFields: "Por favor, preencha todos os campos de 'Tempo Desejado'.", errorFutureTime: "O tempo desejado deve ser no futuro.", timeIsSame: "O tempo atual e o desejado são os mesmos.", and: "e", hour_one: "hora", hour_other: "horas", minute_one: "minuto", minute_other: "minutos", totalPointsLabel: "Total de Pontos:", loadClassPreset: "Carregar Padrão da Classe:", copyBuild: "Copiar Build", resetPreset: "Redefinir Padrão", copied: "Copiado!", buildWith: "Build com", points: "pontos", totalPercent: "Total %", errorInvalidPoints: "Por favor, insira um total de pontos válido.", errorPercentSum: "A soma das porcentagens deve ser 100%.", assassino: "Assassino de Aluguel", cafetao: "Cafetão", corretor: "Corretor", empresario: "Empresário", ladrao: "Ladrão", traficante: "Traficante", forca: "Força", tolerancia: "Tolerância", inteligencia: "Inteligência", carisma: "Carisma", footerText: `Desenvolvido com 🧠 por <a href="https://github.com/bernardotraad" target="_blank" class="font-semibold text-amber-400 hover:underline">Bernardo Traad</a>`, online: "Online", last24h: "24h"
             }
         };
 
@@ -281,30 +191,34 @@
             pointsDistributionSection: document.getElementById('pointsDistributionSection'),
             copyPointsButton: document.getElementById('copyPointsButton'),
             resetPointsCalculatorButton: document.getElementById('resetPointsCalculatorButton'),
-            pointsErrorMessage: document.getElementById('pointsErrorMessage')
+            pointsErrorMessage: document.getElementById('pointsErrorMessage'),
+            onlineCount: document.getElementById('online-count'),
+            dailyCount: document.getElementById('daily-count'),
+            visitorCounter: document.getElementById('visitor-counter')
         };
 
         let currentLang = 'en';
         const getLang = () => {
             const urlParams = new URLSearchParams(window.location.search);
             const forcedLang = urlParams.get('lang');
-            if (forcedLang && i18n[forcedLang]) {
-                return forcedLang;
-            }
-            const userLang = navigator.language || navigator.userLanguage;
-            return userLang.startsWith('pt') ? 'pt' : 'en';
+            if (forcedLang && i18n[forcedLang]) return forcedLang;
+            return (navigator.language || navigator.userLanguage).startsWith('pt') ? 'pt' : 'en';
         };
-        const t = (key) => i18n[currentLang]?.[key] || i18n['en'][key];
+        const t = (key) => i18n[currentLang]?.[key] || i18n.en[key];
 
         function translatePage() {
             document.querySelectorAll('[data-i18n-key]').forEach(el => {
                 const key = el.dataset.i18nKey;
-                el.innerHTML = t(key);
+                // Preserve child elements for the counter
+                if (el.id === 'visitor-counter') {
+                    el.querySelector('span:first-child').firstChild.textContent = t('online') + ': ';
+                    el.querySelector('span:last-child').firstChild.textContent = t('last24h') + ': ';
+                } else {
+                    el.innerHTML = t(key);
+                }
             });
             DOMElements.playerClass.innerHTML = '';
-            CONFIG.CLASS_IDS.forEach(id => {
-                DOMElements.playerClass.add(new Option(t(id), id));
-            });
+            CONFIG.CLASS_IDS.forEach(id => DOMElements.playerClass.add(new Option(t(id), id)));
         }
 
         const Utils = {
@@ -316,7 +230,7 @@
                 elements.forEach(el => {
                     if (el) {
                         el.classList.remove('active');
-                        setTimeout(() => { el.textContent = ''; }, 400);
+                        setTimeout(() => { el.textContent = ''; }, 300);
                     }
                 });
             },
@@ -340,9 +254,9 @@
 
         const TimeCalculator = {
             populateDropdowns: () => {
-                for (let i = 1; i <= 52; i++) { DOMElements.targetDay.add(new Option(i, i)); }
-                for (let i = 0; i <= 23; i++) { DOMElements.targetHour.add(new Option(String(i).padStart(2, '0'), i)); }
-                for (let i = 0; i <= 59; i++) { DOMElements.targetMinute.add(new Option(String(i).padStart(2, '0'), i)); }
+                for (let i = 1; i <= CONFIG.ROUND_DURATION_GAME_DAYS; i++) DOMElements.targetDay.add(new Option(i, i));
+                for (let i = 0; i <= 23; i++) DOMElements.targetHour.add(new Option(String(i).padStart(2, '0'), i));
+                for (let i = 0; i <= 59; i++) DOMElements.targetMinute.add(new Option(String(i).padStart(2, '0'), i));
             },
             calculateCurrentGameTime: () => {
                 if (!DOMElements.roundStartDate.value) return false;
@@ -438,16 +352,14 @@
             buildDistributionUI: () => {
                 let html = '';
                 CONFIG.ATTRIBUTES_IDS.forEach(attrId => {
-                    html += `
-                            <div class="grid grid-cols-12 gap-x-2 sm:gap-x-3 items-center">
-                                <label class="col-span-5 sm:col-span-4 font-semibold text-slate-200 text-sm sm:text-base truncate" data-i18n-key="${attrId}">${t(attrId)}</label>
-                                <span id="points-for-${attrId}" class="col-span-3 sm:col-span-4 text-green-400 font-bold text-sm sm:text-base text-right">0</span>
-                                <div class="col-span-4 sm:col-span-4 flex items-center">
-                                    <input type="number" id="percent-for-${attrId}" data-attr="${attrId}" class="w-full bg-gray-700 border border-gray-600 rounded-lg p-1.5 text-center" min="0" max="100">
-                                    <span class="ml-2">%</span>
-                                </div>
-                            </div>
-                        `;
+                    html += `<div class="grid grid-cols-12 gap-x-2 sm:gap-x-3 items-center">
+                                   <label class="col-span-5 sm:col-span-4 font-semibold text-slate-200 text-sm sm:text-base truncate" data-i18n-key="${attrId}">${t(attrId)}</label>
+                                   <span id="points-for-${attrId}" class="col-span-3 sm:col-span-4 text-green-400 font-bold text-sm sm:text-base text-right">0</span>
+                                   <div class="col-span-4 sm:col-span-4 flex items-center">
+                                     <input type="number" id="percent-for-${attrId}" data-attr="${attrId}" class="w-full bg-gray-700 border border-gray-600 rounded-lg p-1.5 text-center" min="0" max="100">
+                                     <span class="ml-2">%</span>
+                                   </div>
+                                 </div>`;
                 });
                 html += `<div class="grid grid-cols-12 gap-2 items-center pt-2 border-t border-gray-600">
                                <label class="col-span-7 font-bold text-slate-200" data-i18n-key="totalPercent">${t('totalPercent')}</label>
@@ -469,7 +381,7 @@
                 totalPercentEl.textContent = `${(totalPercent * 100).toFixed(0)}%`;
                 totalPercentEl.classList.toggle('text-red-500', Math.round(totalPercent * 100) !== 100);
                 totalPercentEl.classList.toggle('text-green-600', Math.round(totalPercent * 100) === 100);
-                DOMElements.pointsErrorMessage.textContent = Math.round(totalPercent * 100) !== 100 ? t('errorPercentSum') : '';
+                Utils.showMessage(DOMElements.pointsErrorMessage, Math.round(totalPercent * 100) !== 100 ? t('errorPercentSum') : '');
             },
             loadPreset: () => {
                 const selectedClass = DOMElements.playerClass.value;
@@ -495,6 +407,19 @@
             }
         };
 
+        async function updateVisitorCount() {
+            try {
+                const response = await fetch('/.netlify/functions/visitor-counter');
+                if (!response.ok) throw new Error('Failed to fetch count');
+                const data = await response.json();
+                DOMElements.onlineCount.textContent = data.online;
+                DOMElements.dailyCount.textContent = data.last24h;
+            } catch (error) {
+                console.error("Error fetching visitor count:", error);
+                DOMElements.visitorCounter.style.display = 'none';
+            }
+        }
+
         function main() {
             currentLang = getLang();
             document.documentElement.lang = currentLang;
@@ -504,9 +429,7 @@
             DOMElements.tabs.forEach(tab => tab.addEventListener('click', () => showTab(tab.dataset.tabId)));
 
             const savedTotalPoints = localStorage.getItem('totalPoints');
-            if (savedTotalPoints) {
-                DOMElements.totalPoints.value = savedTotalPoints;
-            }
+            if (savedTotalPoints) DOMElements.totalPoints.value = savedTotalPoints;
 
             TimeCalculator.populateDropdowns();
             TimeCalculator.reset();
@@ -524,7 +447,12 @@
 
             PointsCalculator.init();
 
-            showTab('timeCalculatorTabContent');
+            // Corrige o bug da mensagem piscando
+            const initialTab = DOMElements.tabs[0];
+            initialTab.classList.add('active');
+            document.getElementById(initialTab.dataset.tabId).classList.remove('hidden');
+
+            updateVisitorCount();
 
             setInterval(() => {
                 if (!document.getElementById('timeCalculatorTabContent').classList.contains('hidden')) {
