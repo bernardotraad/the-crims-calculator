@@ -1,0 +1,23 @@
+export const DOMElements = {
+    tabs: document.querySelectorAll('.tab-button'),
+    tabContents: document.querySelectorAll('.tab-content'),
+    roundStartDate: document.getElementById('roundStartDate'),
+    currentRoundEndDate: document.getElementById('currentRoundEndDate'),
+    currentDay: document.getElementById('currentDay'),
+    currentHour: document.getElementById('currentHour'),
+    currentMinute: document.getElementById('currentMinute'),
+    targetDay: document.getElementById('targetDay'),
+    targetHour: document.getElementById('targetHour'),
+    targetMinute: document.getElementById('targetMinute'),
+    calculateTimeButton: document.getElementById('calculateTimeButton'),
+    resetTimeCalculatorButton: document.getElementById('resetTimeCalculatorButton'),
+    result: document.getElementById('result'),
+    localTimeResult: document.getElementById('localTimeResult'),
+    errorMessage: document.getElementById('errorMessage'),
+    totalPoints: document.getElementById('totalPoints'),
+    playerClass: document.getElementById('playerClass'),
+    pointsDistributionSection: document.getElementById('pointsDistributionSection'),
+    copyPointsButton: document.getElementById('copyPointsButton'),
+    resetPointsCalculatorButton: document.getElementById('resetPointsCalculatorButton'),
+    pointsErrorMessage: document.getElementById('pointsErrorMessage')
+};
