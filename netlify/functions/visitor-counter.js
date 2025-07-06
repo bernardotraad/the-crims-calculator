@@ -80,7 +80,10 @@ export default async (req) => {
             online: parseInt(onlineCount, 10),
             last24h: parseInt(dailyCount, 10),
         }), {
-            headers: { "Content-Type": "application/json" },
+            headers: {
+                "Content-Type": "application/json",
+                "Cache-Control": "no-cache, no-store, must-revalidate",
+            },
         });
 
     } catch (error) {
