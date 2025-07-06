@@ -13,24 +13,26 @@ async function ensureTablesExist() {
     `;
 }
 
-export default async (event) => {
+// O primeiro argumento é um objeto Request padrão da web, vamos chamá-lo de 'req' para clareza.
+export default async (req) => {
     try {
         await ensureTablesExist();
 
-        // **MUDANÇA PRINCIPAL AQUI**
-        // Lemos o ID direto dos parâmetros da URL.
-        const visitorId = event.queryStringParameters.visitorId;
+        // **A CORREÇÃO DEFINITIVA ESTÁ AQUI**
+        // Criamos um objeto URL a partir da URL completa da requisição (req.url)
+        // e usamos o método padrão .searchParams.get() para pegar o parâmetro.
+        const url = new URL(req.url);
+        const visitorId = url.searchParams.get('visitorId');
 
-        // Fallback para o IP, caso o visitorId não venha por algum motivo.
-        const ip = event.headers['x-nf-client-connection-ip'] || 'unknown';
+        // O resto do código permanece o mesmo.
+        const ip = req.headers.get('x-nf-client-connection-ip') || 'unknown';
         const visitorHash = visitorId || `user-${ip}`;
 
-        console.log('Identificador (via URL):', visitorHash);
+        console.log('Identificador Final:', visitorHash);
 
         const now = new Date();
         const today = now.toISOString().split('T')[0];
 
-        // O resto da lógica permanece exatamente o mesmo.
         await sql`
             INSERT INTO recent_visits (visitor_hash, last_seen)
             VALUES (${visitorHash}, ${now})
