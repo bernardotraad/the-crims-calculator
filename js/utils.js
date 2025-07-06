@@ -1,3 +1,5 @@
+// Arquivo: js/utils.js
+
 import { i18n } from './config.js';
 
 export let currentLang = 'en';
@@ -30,9 +32,29 @@ export const Utils = {
     setInputValue: (element, value) => { element.value = value; }
 };
 
+// Gera um ID único para o visitante e o salva no navegador.
+function getOrCreateVisitorId() {
+    let visitorId = localStorage.getItem('visitorId');
+    if (!visitorId) {
+        // Cria um ID forte e aleatório se não existir
+        visitorId = 'visitor-' + Date.now() + '-' + Math.random().toString(36).substring(2, 15);
+        localStorage.setItem('visitorId', visitorId);
+    }
+    return visitorId;
+}
+
 export async function updateVisitorCount() {
     try {
-        const response = await fetch('/.netlify/functions/visitor-counter');
+        const visitorId = getOrCreateVisitorId();
+
+        const response = await fetch('/.netlify/functions/visitor-counter', {
+            method: 'POST', // Mudamos para POST
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ visitorId: visitorId }), // Enviamos o ID no corpo
+        });
+
         const data = await response.json();
 
         document.getElementById('online-count').textContent = data.online;
