@@ -29,6 +29,20 @@
             background-color: #f59e0b;
             color: white;
         }
+
+        .feedback-container {
+            transition: max-height 0.4s ease-in-out, opacity 0.4s ease-in-out, margin-top 0.4s ease-in-out;
+            max-height: 0;
+            opacity: 0;
+            overflow: hidden;
+            margin-top: 0;
+        }
+
+            .feedback-container.active {
+                max-height: 5rem; /* Altura máxima suficiente para o conteúdo */
+                opacity: 1;
+                margin-top: 1rem; /* Margem que aparece junto com a mensagem */
+            }
     </style>
 </head>
 <body class="bg-gray-900 text-slate-300 flex items-center justify-center min-h-screen p-4 transition-colors duration-300">
@@ -94,9 +108,9 @@
                     <button id="calculateTimeButton" class="w-full bg-amber-500 hover:bg-amber-600 text-white font-bold py-3 px-4 rounded-lg" data-i18n-key="calculate"></button>
                     <button id="resetTimeCalculatorButton" class="w-full bg-red-600 hover:bg-red-700 text-white font-bold py-3 px-4 rounded-lg" data-i18n-key="reset"></button>
                 </div>
-                <div id="result" class="text-center font-semibold text-green-400 min-h-[1.5em]"></div>
-                <div id="localTimeResult" class="text-center text-sm text-slate-400 min-h-[1.25em]"></div>
-                <div id="errorMessage" class="text-center font-semibold text-red-500 min-h-[1.5em]"></div>
+                <div id="result" class="feedback-container text-center font-semibold text-green-400"></div>
+                <div id="localTimeResult" class="feedback-container text-center text-sm text-slate-400"></div>
+                <div id="errorMessage" class="feedback-container text-center font-semibold text-red-500"></div>
             </div>
 
             <div id="pointsCalculatorTabContent" class="tab-content hidden space-y-6">
@@ -119,16 +133,12 @@
                     <button id="copyPointsButton" class="w-full bg-sky-600 hover:bg-sky-700 text-white font-bold py-3 px-4 rounded-lg" data-i18n-key="copyBuild"></button>
                     <button id="resetPointsCalculatorButton" class="w-full bg-red-600 hover:bg-red-700 text-white font-bold py-3 px-4 rounded-lg" data-i18n-key="resetPreset"></button>
                 </div>
-                <div id="pointsErrorMessage" class="text-center font-semibold text-red-500 min-h-[1.5em]"></div>
+                <div id="pointsErrorMessage" class="feedback-container text-center font-semibold text-red-500"></div>
             </div>
         </main>
 
         <footer class="border-t border-gray-700 pt-4 text-center">
             <p class="text-sm text-slate-500" data-i18n-key="footerText"></p>
-            <div id="visitor-counter" class="text-xs text-slate-500 space-x-4 mt-2">
-                <span>Online: <span id="online-count">--</span></span>
-                <span>24h: <span id="daily-count">--</span></span>
-            </div>  
         </footer>
     </div>
 
@@ -234,7 +244,7 @@
                 ladrao: "Ladrão",
                 traficante: "Traficante",
                 forca: "Força",
-                tolerancia: "Resistência",
+                tolerancia: "Tolerância",
                 inteligencia: "Inteligência",
                 carisma: "Carisma",
                 footerText: `Desenvolvido com 🧠 por <a href="https://github.com/bernardotraad" target="_blank" class="font-semibold text-amber-400 hover:underline">Bernardo Traad</a>`
@@ -275,7 +285,6 @@
         };
 
         let currentLang = 'en';
-        // =====> LÓGICA DE DETECÇÃO DE IDIOMA ATUALIZADA <=====
         const getLang = () => {
             const urlParams = new URLSearchParams(window.location.search);
             const forcedLang = urlParams.get('lang');
@@ -304,7 +313,18 @@
                 return `${date.getFullYear()}-${pad(date.getMonth() + 1)}-${pad(date.getDate())}T${pad(date.getHours())}:${pad(date.getMinutes())}`;
             },
             clearMessages: (...elements) => {
-                elements.forEach(el => { if (el) el.textContent = ''; });
+                elements.forEach(el => {
+                    if (el) {
+                        el.classList.remove('active');
+                        setTimeout(() => { el.textContent = ''; }, 400);
+                    }
+                });
+            },
+            showMessage: (element, message) => {
+                if (element) {
+                    element.textContent = message;
+                    element.classList.add('active');
+                }
             },
             getInputValueAsInt: (element) => parseInt(element.value, 10),
             setInputValue: (element, value) => { element.value = value; }
@@ -352,25 +372,25 @@
             calculateRealTime: () => {
                 Utils.clearMessages(DOMElements.result, DOMElements.localTimeResult, DOMElements.errorMessage);
                 if (!TimeCalculator.calculateCurrentGameTime()) {
-                    DOMElements.errorMessage.textContent = t('errorInvalidStart');
+                    Utils.showMessage(DOMElements.errorMessage, t('errorInvalidStart'));
                     return;
                 }
                 const [currentDay, currentHour, currentMinute] = [DOMElements.currentDay, DOMElements.currentHour, DOMElements.currentMinute].map(Utils.getInputValueAsInt);
                 const [targetDay, targetHour, targetMinute] = [DOMElements.targetDay, DOMElements.targetHour, DOMElements.targetMinute].map(Utils.getInputValueAsInt);
 
                 if ([targetDay, targetHour, targetMinute].some(isNaN)) {
-                    DOMElements.errorMessage.textContent = t('errorFillFields');
+                    Utils.showMessage(DOMElements.errorMessage, t('errorFillFields'));
                     return;
                 }
                 const currentTotalMinutes = (currentDay * 1440) + (currentHour * 60) + currentMinute;
                 const targetTotalMinutes = (targetDay * 1440) + (targetHour * 60) + targetMinute;
                 if (targetTotalMinutes < currentTotalMinutes) {
-                    DOMElements.errorMessage.textContent = t('errorFutureTime');
+                    Utils.showMessage(DOMElements.errorMessage, t('errorFutureTime'));
                     return;
                 }
                 const diffGameMinutes = targetTotalMinutes - currentTotalMinutes;
                 if (diffGameMinutes === 0) {
-                    DOMElements.result.textContent = t('timeIsSame');
+                    Utils.showMessage(DOMElements.result, t('timeIsSame'));
                     return;
                 }
                 const diffRealSeconds = diffGameMinutes * (60 / CONFIG.GAME_MINUTES_PER_REAL_MINUTE);
@@ -382,9 +402,9 @@
                 const resultParts = [];
                 if (hours > 0) resultParts.push(`${hours} ${t(hourKey)}`);
                 if (minutes > 0) resultParts.push(`${minutes} ${t(minuteKey)}`);
-                DOMElements.result.textContent = `${t('realTimeNeeded')}: ${resultParts.join(` ${t('and')} `)}`;
+                Utils.showMessage(DOMElements.result, `${t('realTimeNeeded')}: ${resultParts.join(` ${t('and')} `)}`);
                 const targetRealDate = new Date(new Date().getTime() + diffRealSeconds * 1000);
-                DOMElements.localTimeResult.textContent = `${t('localTimePrefix')}: ${targetRealDate.toLocaleString(currentLang, { dateStyle: 'long', timeStyle: 'short' })}`;
+                Utils.showMessage(DOMElements.localTimeResult, `${t('localTimePrefix')}: ${targetRealDate.toLocaleString(currentLang, { dateStyle: 'long', timeStyle: 'short' })}`);
             },
             reset: () => {
                 const savedStartDate = localStorage.getItem('roundStartDate');
@@ -511,25 +531,6 @@
                     TimeCalculator.calculateCurrentGameTime();
                 }
             }, 1000);
-
-            updateVisitorCount();
-        }
-
-        // Adicionar esta função dentro do <script>
-
-        async function updateVisitorCount() {
-            try {
-                // Esta URL aponta para a nossa função no Netlify
-                const response = await fetch('/.netlify/functions/visitor-counter');
-                const data = await response.json();
-
-                document.getElementById('online-count').textContent = data.online;
-                document.getElementById('daily-count').textContent = data.last24h;
-            } catch (error) {
-                console.error("Error fetching visitor count:", error);
-                // Se der erro, esconde os contadores para não poluir a UI
-                document.getElementById('visitor-counter').style.display = 'none';
-            }
         }
 
         document.addEventListener('DOMContentLoaded', main);
