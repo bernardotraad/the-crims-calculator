@@ -27,6 +27,10 @@ export default async (req) => {
         await ensureTablesExist();
 
         const visitorIp = req.headers['x-nf-client-connection-ip'] || 'unknown';
+
+        // ADICIONE ESTA LINHA PARA DEBUG
+        console.log('IP Recebido:', visitorIp);
+
         const visitorHash = `user-${visitorIp}`; // Cria um hash simples para representar o visitante.
         const now = new Date();
         const today = now.toISOString().split('T')[0]; // Data de hoje no formato "AAAA-MM-DD".
