@@ -1,4 +1,6 @@
-﻿import { CONFIG } from './config.js';
+﻿// Arquivo: js/main.js
+
+import { CONFIG } from './config.js';
 import { DOMElements } from './dom.js';
 import { Utils, getLang, setLang, t, updateVisitorCount } from './utils.js';
 import { TimeCalculator } from './time-calculator.js';
@@ -40,8 +42,6 @@ function addEventListeners() {
     DOMElements.targetDay.addEventListener('change', () => localStorage.setItem('targetDay', DOMElements.targetDay.value));
     DOMElements.targetHour.addEventListener('change', () => localStorage.setItem('targetHour', DOMElements.targetHour.value));
     DOMElements.targetMinute.addEventListener('change', () => localStorage.setItem('targetMinute', DOMElements.targetMinute.value));
-
-    // A inicialização dos listeners da calculadora de pontos já é feita no PointsCalculator.init()
 }
 
 function main() {
@@ -62,7 +62,7 @@ function main() {
     // 4. Inicializar os módulos
     TimeCalculator.populateDropdowns();
     TimeCalculator.reset();
-    PointsCalculator.init(); // Constrói a UI e adiciona seus próprios listeners
+    PointsCalculator.init();
 
     // 5. Adicionar os listeners principais
     addEventListeners();
@@ -71,13 +71,18 @@ function main() {
     showTab('timeCalculatorTabContent');
 
     // 7. Configurar tarefas em segundo plano
+    // Este atualiza o tempo do jogo a cada segundo
     setInterval(() => {
         if (!document.getElementById('timeCalculatorTabContent').classList.contains('hidden')) {
             TimeCalculator.calculateCurrentGameTime();
         }
     }, 1000);
 
+    // **AQUI ESTÁ A MUDANÇA PARA ATUALIZAÇÃO EM TEMPO REAL**
+    // 1. Chama a função imediatamente ao carregar a página.
     updateVisitorCount();
+    // 2. E depois, configura para chamar a mesma função a cada 15 segundos.
+    setInterval(updateVisitorCount, 15000); // 15000 milissegundos = 15 segundos
 }
 
 document.addEventListener('DOMContentLoaded', main);
