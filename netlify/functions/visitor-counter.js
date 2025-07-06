@@ -13,27 +13,28 @@ async function ensureTablesExist() {
     `;
 }
 
-// O manipulador principal da função Netlify.
-export default async (req) => {
+// A mudança principal está aqui: (event) em vez de (req)
+export default async (event) => {
     try {
         await ensureTablesExist();
 
-        // Tenta pegar o ID enviado pelo cliente via POST.
         let visitorId;
-        if (req.body) {
+        // E aqui: usamos event.body
+        if (event.body) {
             try {
-                const body = JSON.parse(req.body);
+                const body = JSON.parse(event.body);
                 visitorId = body.visitorId;
             } catch (e) {
-                // Corpo da requisição não é um JSON válido, ignora.
+                console.error("Erro ao parsear o corpo da requisição:", e);
+                visitorId = null;
             }
         }
 
-        // Se o ID do cliente não foi enviado, usa o IP como fallback.
-        const ip = req.headers['x-nf-client-connection-ip'] || 'unknown';
-        const visitorHash = visitorId || `user-${ip}`; // Prioriza o ID do cliente!
+        // Usamos o header do objeto event para o IP
+        const ip = event.headers['x-nf-client-connection-ip'] || 'unknown';
+        const visitorHash = visitorId || `user-${ip}`;
 
-        console.log('Identificador Utilizado:', visitorHash); // Log para depuração
+        console.log('Identificador Utilizado (Final):', visitorHash);
 
         const now = new Date();
         const today = now.toISOString().split('T')[0];
@@ -68,7 +69,6 @@ export default async (req) => {
         `;
         const dailyCount = dailyResult[0].count;
 
-        // --- Retorna os resultados em formato JSON (com header de cache) ---
         return new Response(JSON.stringify({
             online: parseInt(onlineCount, 10),
             last24h: parseInt(dailyCount, 10),
