@@ -1,5 +1,157 @@
 body {
     font-family: 'Inter', sans-serif;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Dark theme (default) */
+body.dark {
+    background-color: rgb(17 24 39);
+    color: rgb(203 213 225);
+}
+
+/* Light theme */
+body.light {
+    background-color: rgb(249 250 251);
+    color: rgb(31 41 55);
+}
+
+/* Container styles */
+body.dark .container {
+    background-color: rgb(31 41 55);
+    border-color: rgb(75 85 99);
+}
+
+body.light .container {
+    background-color: white;
+    border: 1px solid rgb(229 231 235);
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+}
+
+/* Input and select styles */
+body.dark input,
+body.dark select {
+    background-color: rgb(55 65 81);
+    border-color: rgb(75 85 99);
+    color: rgb(203 213 225);
+}
+
+body.light input,
+body.light select {
+    background-color: white;
+    border-color: rgb(209 213 219);
+    color: rgb(31 41 55);
+}
+
+body.dark input:focus,
+body.dark select:focus {
+    border-color: rgb(245 158 11);
+    box-shadow: 0 0 0 2px rgba(245, 158, 11, 0.2);
+}
+
+body.light input:focus,
+body.light select:focus {
+    border-color: rgb(245 158 11);
+    box-shadow: 0 0 0 2px rgba(245, 158, 11, 0.2);
+}
+
+/* Readonly inputs */
+body.dark input:read-only {
+    background-color: rgb(17 24 39);
+    color: rgb(156 163 175);
+}
+
+body.light input:read-only {
+    background-color: rgb(243 244 246);
+    color: rgb(107 114 128);
+}
+
+/* Tab navigation */
+body.dark .tab-button {
+    color: rgb(156 163 175);
+    border-color: transparent;
+}
+
+body.light .tab-button {
+    color: rgb(107 114 128);
+    border-color: transparent;
+}
+
+body.dark .tab-button:hover {
+    color: rgb(203 213 225);
+}
+
+body.light .tab-button:hover {
+    color: rgb(31 41 55);
+}
+
+/* Active tab */
+body.dark .tab-button.active,
+body.light .tab-button.active {
+    border-color: rgb(245 158 11);
+    background-color: rgb(245 158 11);
+    color: white;
+}
+
+/* Borders */
+body.dark .border-gray-700 {
+    border-color: rgb(55 65 81);
+}
+
+body.light .border-gray-700 {
+    border-color: rgb(229 231 235);
+}
+
+/* Background sections */
+body.dark .bg-gray-900\/50 {
+    background-color: rgba(17, 24, 39, 0.5);
+}
+
+body.light .bg-gray-900\/50 {
+    background-color: rgba(243, 244, 246, 0.8);
+}
+
+/* Text colors */
+body.dark .text-slate-200 {
+    color: rgb(226 232 240);
+}
+
+body.light .text-slate-200 {
+    color: rgb(31 41 55);
+}
+
+body.dark .text-slate-400 {
+    color: rgb(148 163 184);
+}
+
+body.light .text-slate-400 {
+    color: rgb(107 114 128);
+}
+
+body.dark .text-slate-500 {
+    color: rgb(100 116 139);
+}
+
+body.light .text-slate-500 {
+    color: rgb(107 114 128);
+}
+
+/* Theme toggle button */
+body.dark #theme-toggle {
+    background-color: rgb(55 65 81);
+    color: rgb(203 213 225);
+}
+
+body.dark #theme-toggle:hover {
+    background-color: rgb(75 85 99);
+}
+
+body.light #theme-toggle {
+    background-color: rgb(229 231 235);
+    color: rgb(31 41 55);
+}
+
+body.light #theme-toggle:hover {
+    background-color: rgb(209 213 219);
 }
 
 input[type="number"]::-webkit-outer-spin-button,

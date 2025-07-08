@@ -1,8 +1,8 @@
-﻿// Arquivo: js/main.js
+// Arquivo: js/main.js
 
 import { CONFIG } from './config.js';
 import { DOMElements } from './dom.js';
-import { Utils, getLang, setLang, t, updateVisitorCount } from './utils.js';
+import { Utils, getLang, setLang, t, updateVisitorCount, ThemeManager } from './utils.js';
 import { TimeCalculator } from './time-calculator.js';
 import { PointsCalculator } from './points-calculator.js';
 
@@ -50,27 +50,30 @@ function main() {
     setLang(lang);
     document.documentElement.lang = lang;
 
-    // 2. Traduzir a página e popular elementos dinâmicos
+    // 2. Inicializar o gerenciador de temas
+    ThemeManager.init();
+
+    // 3. Traduzir a página e popular elementos dinâmicos
     translatePage();
 
-    // 3. Restaurar estado salvo (se houver)
+    // 4. Restaurar estado salvo (se houver)
     const savedTotalPoints = localStorage.getItem('totalPoints');
     if (savedTotalPoints) {
         DOMElements.totalPoints.value = savedTotalPoints;
     }
 
-    // 4. Inicializar os módulos
+    // 5. Inicializar os módulos
     TimeCalculator.populateDropdowns();
     TimeCalculator.reset();
     PointsCalculator.init();
 
-    // 5. Adicionar os listeners principais
+    // 6. Adicionar os listeners principais
     addEventListeners();
 
-    // 6. Definir o estado inicial da UI
+    // 7. Definir o estado inicial da UI
     showTab('timeCalculatorTabContent');
 
-    // 7. Configurar tarefas em segundo plano
+    // 8. Configurar tarefas em segundo plano
     // Este atualiza o tempo do jogo a cada segundo
     setInterval(() => {
         if (!document.getElementById('timeCalculatorTabContent').classList.contains('hidden')) {
