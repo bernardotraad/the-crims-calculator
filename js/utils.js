@@ -29,9 +29,39 @@ export const Utils = {
     clearMessages: (...elements) => elements.forEach(el => { el.textContent = ''; })
 };
 
-export function updateVisitorCount() {
-    // Placeholder function - implement with your backend
-    console.log('Updating visitor count...');
+export async function updateVisitorCount() {
+    try {
+        const response = await fetch('/.netlify/functions/visitor-counter', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                action: 'increment'
+            })
+        });
+
+        if (response.ok) {
+            const data = await response.json();
+            
+            // Update the UI with the visitor counts
+            const onlineCountEl = document.getElementById('online-count');
+            const dailyCountEl = document.getElementById('daily-count');
+            
+            if (onlineCountEl && data.online !== undefined) {
+                onlineCountEl.textContent = data.online;
+            }
+            
+            if (dailyCountEl && data.daily !== undefined) {
+                dailyCountEl.textContent = data.daily;
+            }
+        } else {
+            console.warn('Failed to update visitor count:', response.status);
+        }
+    } catch (error) {
+        console.warn('Error updating visitor count:', error);
+        // Silently fail - don't show error to user for this non-critical feature
+    }
 }
 
 // Theme management
